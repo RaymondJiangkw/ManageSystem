@@ -18,6 +18,20 @@
 * classroom: indicate where the lesson is held.
 * supplement: the additional information about this lesson.
 * collage: indicate which collage this lesson belongs to.
-* school[foreign key]: specify which school this lesson belongs to.
-* id: indicate the id of the lesson.
-* time: indicate the time of lesson. (Format: for each class, first integer represents the day(e.g. Thursday), the second integer represents the time interval.)
+* school: specify which school this lesson belongs to.
+* lesson_id: indicate the id of the lesson.
+
+### Class_time
+* day: the representation of day
+* time: the time interval
+* system: the id of system
+* lesson[Foreign Key]: related to the lesson
+* interpretation: interpretation for the time
+
+## Views
+### index
+* display all classes.
+* Provide an input box to filter ideal classes.
+
+### Detail
+* Give details about a specific class.

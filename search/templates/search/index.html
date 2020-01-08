@@ -1,0 +1,30 @@
+<h1>课程管理总页面</h1>
+<h2>课程信息</h2>
+{% if lessons %}
+<table border = "1">
+  <tr>
+    <th>课程名称</th>
+    <th>课程编号</th>
+    <th>开课时间</th>
+    <th>所属学院</th>
+    <th>所属学校</th>
+  </tr>
+  {% for lesson in lessons %}
+  <tr>
+    <th><a href="/class_search/{{lesson.id}}/">{{lesson.name}}</a></th>
+    <th>{{lesson.lesson_id}}</th>
+    <th>
+      {% for class_time in lesson.class_time_set.all%}
+        <li>星期{{class_time.day}} 时间段：{{class_time.time}} 具体时间: {{class_time.interpretation}}</li>
+      {% endfor %}
+    </th>
+    <th>{{lesson.collage}}</th>
+    <th>{{lesson.school}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% else %}
+<p>没有可用的课程信息。</p>
+{% endif %}

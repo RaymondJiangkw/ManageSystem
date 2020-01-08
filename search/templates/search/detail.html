@@ -1,0 +1,17 @@
+<h1>{{lesson}}</h1>
+<ul>
+  <h2>基本信息</h2>
+  <li><b>课程名称：</b>{{lesson.name}}</li>
+  <li><b>课程编号：</b>{{lesson.lesson_id}}</li>
+  <li><b>教师名称：</b>{{lesson.teacher}}</li>
+  <li><b>课程容量：</b>{{lesson.capacity}}</li>
+  <li><b>课程教师：</b>{{lesson.classroom}}</li>
+  <li><b>所属学院：</b>{{lesson.collage}}</li>
+  <li><b>所属学校：</b>{{lesson.school}}</li>
+  <li><b>补充信息：</b>{{lesson.supplement}}</li>
+  <h2>上课时间</h2>
+  {% for class_time in lesson.class_time_set.all%}
+    <li>星期{{class_time.day}} 时间段：{{class_time.time}} 具体时间: {{class_time.interpretation}}</li>
+  {% endfor %}
+</ul>
+<a href="/class_search/">返回到主页</a>
