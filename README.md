@@ -7,7 +7,11 @@ ManageSystem
 工具
 ----
 * Python
-* Django（网页架构，非常感谢！！）
+* Python: Models:
+  * Django（网页架构，非常感谢！！）
+  * requests
+  * lxml
+  * bs4(BeautifulSoup)
 
 研发计划：
 --------

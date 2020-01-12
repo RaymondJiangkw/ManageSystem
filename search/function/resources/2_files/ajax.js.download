@@ -1,0 +1,142 @@
+// 此文件包含业务相关函数
+// 1. 级联组件绑定及初始化
+// 2. 自动完成组件初始化
+
+
+/**
+ * 通用 级联关系
+ * @param x_selector
+ * @param y_selector
+ * @param ajax_url
+ * @param ajax_data_func
+ * @param init_data
+ */
+function common_bind(x_selector, y_selector, ajax_url, ajax_data_func, init_data) {
+    init_data = init_data || {};
+    $(x_selector).change(function(){ // onchange event
+        var xval = $(this).val();
+        if (!xval || xval === "") {
+            $(y_selector).trigger("chosen:updated");
+            return;
+        }
+
+        var xname = $(this).attr('name');
+        var ajax_data = {};
+        ajax_data[xname] = xval;
+        if (ajax_data_func) ajax_data = ajax_data_func(xval);
+
+        $.getJSON(ajax_url, ajax_data, function(data) {
+            var option = $(y_selector).find("option[value='']");
+            if(option.length === 0) option = $("<option value=''>----</option>");
+            $(y_selector).empty().append(option);
+
+            $.each(data, function(i, n) {
+                $(y_selector).append('<option value="' + n[0] + '">' + n[1] + '</option>');
+            });
+            $(y_selector).trigger("chosen:updated");
+
+            // init y
+            var yval = $.query.GET($(y_selector).attr("name")) || init_data.yval;
+            if($(y_selector).attr("name") && yval!==true && yval !== "") {
+                $(y_selector).val(yval).trigger("change");
+            }
+        });
+    });
+
+    // init xs
+    var xval = $.query.GET($(x_selector).attr("name")) || init_data.xval;
+    if($(x_selector).attr("name") && xval!==true && xval !== "")
+        $(x_selector).val(xval).trigger("change");
+}
+
+
+/**
+ * 学院专业级联
+ * @param xs_selector
+ * @param zy_selector
+ */
+function bind_xs_zy(xs_selector, zy_selector) {
+    var ajax_data_func = function (xval) { return {'xsh': xval}; };
+    common_bind(xs_selector, zy_selector, "/dict/ajax_major_list/", ajax_data_func);
+}
+
+/**
+ * 专业班级级联
+ * @param zy_selector
+ * @param bj_selector
+ */
+function bind_zy_bj(zy_selector, bj_selector) {
+    var ajax_data_func = function (xval) { return {'zyh': xval}; };
+    common_bind(zy_selector, bj_selector, "/dict/ajax_class_list/", ajax_data_func);
+}
+
+/**
+ * 年级学院专业班级级联
+ * @param nj_selector
+ * @param xs_selector
+ * @param zy_selector
+ * @param bj_selector
+ */
+function bind_nj_xs_zy_bj(nj_selector, xs_selector, zy_selector, bj_selector) {
+    // 手动触发条件
+    $(nj_selector).change(function () {
+        $(zy_selector).trigger("change");
+    });
+    bind_xs_zy(xs_selector, zy_selector);
+
+    var ajax_data_func = function (xval) { return { 'zyh': xval, 'njdm': $(nj_selector).val()}; }
+    common_bind(zy_selector, bj_selector, "/dict/ajax_class_list/", ajax_data_func);
+}
+
+/**
+ * 年级学院专业方案级联
+ * @param nj_selector
+ * @param xs_selector
+ * @param zy_selector
+ * @param fajhh_selector
+ */
+function bind_nj_xs_zy_fajhh(nj_selector, xs_selector, zy_selector, fajhh_selector) {
+    // 手动触发条件
+    $(nj_selector).change(function () {
+        $(zy_selector).trigger("change");
+    });
+    bind_xs_zy(xs_selector, zy_selector);
+
+    var ajax_data_func2 = function (xval) { return {'zyh': xval, 'njdm': $(nj_selector).val()}; };
+    common_bind(zy_selector, fajhh_selector, "/training/ajax_fajhh_list/", ajax_data_func2);
+}
+
+/**
+ * 校区-教学楼级联
+ * @param campus_selectoor
+ * @param building_selector
+ */
+function bind_campus_building(campus_selectoor, building_selector) {
+    var ajax_data_func = function (xval) { return {'xqh': xval}; };
+    common_bind(campus_selectoor, building_selector, "/dict/ajax_building_list/", ajax_data_func);
+}
+
+/**
+ * 校区-教学楼-教室级联
+ * @param campus_selectoor
+ * @param building_selector
+ * @param room_selector
+ */
+function bind_campus_building_room(campus_selectoor, building_selector, room_selector) {
+    bind_campus_building(campus_selectoor, building_selector);
+    var ajax_data_func2 = function (xval) { return {'jxlh': xval, 'xqh': $(campus_selectoor).val()}; };
+    common_bind(building_selector, room_selector, "/dict/ajax_room_list/", ajax_data_func2);
+}
+
+
+/**
+ * 执行教学计划-排课批次级联
+ * @param zxjxjhh_selector
+ * @param pkpcdm_selector
+ */
+function bind_zxjxjhh_pkpcdm(zxjxjhh_selector, pkpcdm_selector) {
+    var ajax_data_func = function (xval) {
+        return {'zxjxjhh': xval};
+    };
+    common_bind(zxjxjhh_selector, pkpcdm_selector, "/supervise/course_arrange/ajax/get_batch_list/", ajax_data_func);
+}

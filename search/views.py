@@ -9,3 +9,8 @@ def index(request):
 def detail(request,lesson_id):
     lesson = get_object_or_404(Lesson,pk = lesson_id)
     return render(request,"search/detail.html",{"lesson":lesson})
+def modify(request):
+    pre_text = "Modify Page."
+    return HttpResponse(request,pre_text)
+def add(request):
+    return render(request,"search/add.html")

@@ -1,0 +1,377 @@
+// 此文件包含业务无关
+// 1. 检索条件自动填充
+// 2. 公共组件初始化，如日期，多选等
+
+$(document).ready(function () {
+    /* 多选移动到顶部 */
+    setTimeout(function () {
+        $("select").scrollTop(0);
+    }, 0);
+
+    /* 表单初始化 */
+    var ks = $.query.keys;
+    for (var k in ks) {
+        var v = ks[k];
+        if (v === true) v = '';
+
+        // 普通元素
+        $("select[name=" + k + "]").val(v);
+        $("textarea[name=" + k + "]").val(v);
+
+        $("input[name=" + k + "]:not(:submit):not(:radio):not(:checkbox)").val(v);
+        $("input[name=" + k + "]:checkbox").attr("checked", 'true');
+
+        // 单选组设置值
+        $("input[name=" + k + "]:radio").each(function () {
+            this.checked = (v == this.value);
+        });
+
+        // 多选下拉框 + 多选勾选框
+        if (v instanceof Array) {
+            // 下拉框
+            $("select[name^=" + k + "]").val(v);
+
+            // 勾选框
+            $("input[name^=" + k + "]:checkbox").each(function () {
+                this.checked = v.includes(this.value);
+            });
+        }
+    }
+
+    /* 组件初始化 */
+    init_components();
+});
+
+function init_components() {
+    /* 文字隐藏截断 */
+    $(".ellipsis").each(function () {
+        var that = $(this);
+        $(this).attr('title', that.attr('title') || that.html());
+    });
+
+    /* 文件上传组件 */
+    $('.ace-file-input').each(function () {
+        $(this).ace_file_input({
+            no_file: ' ...',
+            btn_choose: '上传',
+            btn_change: '修改',
+            droppable: false,
+            onchange: null,
+            thumbnail: true //| true | large
+            //blacklist:'exe|php'
+            //whitelist:'gif|png|jpg|jpeg'
+        });
+    });
+
+    /* Title提示组件 */
+    $('[placeholder]').each(function () {
+        $(this).attr('title', $(this).attr('placeholder'));
+    });
+
+    setTimeout(function () {
+        $('[data-rel=tooltip]').tooltip();
+        $('[data-rel=popover]').popover({
+            html: true, trigger: 'hover', delay: {show: 600, hide: 100}
+        });
+    }, 500);
+
+    /* 日期等下拉选择组件 */
+    $('.datetime-picker').datetimepicker();
+    $('.date-picker').datepicker({forceParse: false, language: 'zh-CN'});
+    $('.chosen-select').chosen({allow_single_deselect: true, search_contains: true});
+
+    /* 选择框自动重绘 */
+    $(window).on('resize.chosen', function () {
+        var w = $('.chosen-select').parent().width();
+        $('.chosen-select').next().css({'width': w});
+    }).trigger('resize.chosen');
+
+    setTimeout(function () {
+        $(window).resize();
+    }, 100);
+    $(".resize").click(function () {
+        setTimeout(function () {
+            $(window).resize();
+        }, 100);
+    });
+
+    /* 超链接 操作确定组件 */
+    $(".confirm").click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href"),
+            title = $(this).attr("title") || '温馨提示',
+            info = $(this).attr("info") || "操作不可恢复，是否确认?";
+
+        show_common_dialog(info, function () {
+            window.location.href = url;
+        }, title);
+    });
+
+    /* 点击间隔组件配置 */
+    $(".click_interval").on('click', function () {
+        var $node = $(this);
+        $node.addClass('disabled');
+        $node.attr('bak_href', $node.attr('href'));
+
+        setTimeout(function () {
+            $node.removeClass('disabled');
+            $node.attr('href', $node.attr('bak_href'));
+        }, $(this).attr('time') || 1000);
+    });
+
+    /* 右上角提示组件配置 */
+    $(".caret-hint").each(function () {
+        $(this).css({'position': 'relative'});
+        var color = $(this).attr('ch-color') || 'red';
+        var title = $(this).attr('ch-title') || '';
+        var content = $(this).attr('ch-content') || '';
+
+        var dom = $('<div class="caret-info">').css({
+            'width': 0, 'height': 0, 'cursor': 'pointer',
+            'top': 0, 'right': 0, 'position': 'absolute',
+            'border-top': '8px solid ' + color,
+            'border-left': '8px solid transparent',
+        });
+
+        if (title || content) {
+            dom.attr('data-rel', 'popover').attr('data-title', title).attr('data-content', content);
+        }
+        if ($(this).find('.caret-info').length == 0) $(this).append(dom);
+    });
+
+    /* 超链接 带当前URL参数 */
+    $('a.with_args').each(function () {
+        var href = $(this).attr("href") || "";
+        var search = $.query.load(window.location.search),
+            params = $.query.load(href);
+
+        for (var key in params.keys)
+            search = search.set(key, params.get(key));
+
+        // 由于自动转换 param[0]=01&param[1]=02
+        search_str = search.toString().replace(/%5B(\d+)%5D/g, '%5B%5D').replace(/%2B/, '');
+        $(this).attr('href', href.split('?')[0] + search_str);
+    });
+
+    /**
+     * GET 表单 新增高级搜索字段
+     * 标识 当前请求是否含高级搜索
+     */
+    $('form[method=get]').each(function () {
+        var has_advance_query = $.query.get("has_advance_query") || "";
+        if (has_advance_query === true) has_advance_query = "";
+
+        var input = $("<input type='hidden' name='has_advance_query'>");
+        input.val(has_advance_query).appendTo($(this));
+    });
+
+    /**
+     * POST 表单 记录页面refer
+     * 提交 返回refer页面
+     */
+    $('form[method=post]').each(function () {
+        var input = $("<input type='hidden' name='refer'>");
+        input.val(document.referrer).appendTo($(this));
+    });
+
+    /**
+     * FORM中 hidden 元素
+     * 不能设置为required
+     */
+    $("[required]").each(function () {
+        if ($(this).css("display") == "none")
+            $(this).removeAttr("required");
+    });
+
+    // 冲突课堂检测
+    $(".panel-btn").click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href") || $(this).attr("url");
+        var width = $(this).attr("panel-width") || 800;
+        initPanel(url, width);
+    });
+}
+
+
+/**
+ * 获取表单数据
+ * @param selector
+ */
+function get_form_data(selector) {
+    var serializeObj = {};
+    $.each($(selector).find("[name]"), function () {
+        var cur = $(this), name = $(this).attr('name');
+        if (cur.attr('type') == 'checkbox') {
+            if (cur[0].checked)
+                serializeObj[name] = '1';
+        } else {
+            serializeObj[name] = cur.val();
+        }
+    });
+    return serializeObj;
+}
+
+/**
+ * 给URL添加参数
+ * @param url
+ * @param params
+ * @param ext_search
+ */
+function add_params(url, params, ext_search = false) {
+    var search = $.query.load(url);
+    if (ext_search) {
+        // localtion.search更新
+        var query = $.query.load(window.location.search);
+        for (var key in query.keys)
+            search = search.set(key, query.get(key));
+    }
+
+    // params更新
+    for (var key in params) {
+        search = search.set(key, params[key]);
+    }
+    return url.split("?")[0] + search;
+}
+
+/**
+ * 发送post请求
+ * @param url
+ * @param args
+ * @param csrf_token
+ */
+function post_to(url, args, csrf_token) {
+    var form = $("<form></form>");
+    var default_csrf = window.csrf_token || '';
+    form.attr({"action": url, "method": "post"}).append($(csrf_token || default_csrf));
+
+    $.each(args, function (key, value) {
+        var input = $("<input type='hidden'>");
+        input.attr({"name": key}).val(value).appendTo(form);
+    });
+
+    form.appendTo(document.body).submit();
+    document.body.removeChild(form[0]);
+}
+
+/**
+ * 弹出对话框
+ * @param selector 文字或者Dom或者#id.etc
+ * @param buttons 操作按钮
+ * @param title 可选
+ */
+function show_dialog(selector, buttons, title, options) {
+    if (window.parent != window) {
+        window.parent.show_dialog(selector, buttons, title, options);
+        return;
+    }
+
+    var src_dom;
+    try {
+        src_dom = $(selector);
+        if (src_dom.length == 0)
+            src_dom = $("<div></div>").html(selector);
+    } catch (E) {
+        // 可能是字符串
+        src_dom = $("<div></div>").html(selector);
+    }
+
+    src_dom = src_dom.clone(true, true);
+    src_dom.show().removeClass('hide');
+    title = title || src_dom.attr('dialog_title') || '提示';
+
+    var dialog = bootbox.dialog($.extend(options || {}, {
+        animate: false,
+        buttons: buttons || {},
+        message: 'loading...',
+        title: '<span style="font-weight: bold;">' + title + '</span>',
+    }));
+    dialog.find(".bootbox-body").empty().append(src_dom).css({
+        'min-height': '50px',
+        'line-height': '25px'
+    });
+
+    $(".bootbox").contextmenu(function () {
+        return false;
+    });
+    init_components();
+    return dialog;
+}
+
+function show_common_dialog(selector, ok_callback, title, options) {
+    options = options || {};
+    var ok_text = options.ok_text || '确定';
+    var cancel_text = options.cancel_text || '取消';
+
+    var default_buttons = {
+        "info": {
+            "callback": function () {
+                if (ok_callback) { /* 确定回调 */
+                    var data = get_form_data($(this));
+                    return ok_callback($(this), data);
+                }
+            },
+            "className": "btn-sm btn-info",
+            "label": "<i class='ace-icon fa fa-check'></i> " + ok_text
+        }, "cancle": {
+            "callback": function () {
+                if (options && options.cancel_callback) { /* 取消回调回调 */
+                    return options.cancel_callback($(this));
+                }
+            },
+            "className": "btn-sm", "label": cancel_text,
+        }
+    };
+    merge_buttons = $.extend(default_buttons, options.buttons || {});
+    return show_dialog(selector, merge_buttons, title, options);
+}
+
+/**
+ * 加载中
+ */
+function show_mask(info) {
+    if (window.parent != window) {
+        return window.parent.show_mask(info);
+    }
+
+    info = info || '加载中';
+    return bootbox.dialog({
+        size: 'small',
+        message: '<i class="boot-mask fa fa-spin fa-spinner"></i> ' + info
+    });
+}
+
+function clear_mask() {
+    if (window.parent != window) {
+        return window.parent.clear_mask();
+    }
+
+    $(".bootbox").each(function () {
+        var isMask = $(this).find("i.boot-mask").length > 0;
+        if (isMask) $(this).modal("hide");
+    });
+}
+
+/**
+ * 消息提醒
+ * @param titledom
+ * @param msgdom
+ */
+function show_message(msgdom, titledom, sticky) {
+    if (window.parent != window) {
+        window.parent.show_message(msgdom, titledom);
+        return;
+    }
+
+    $.gritter.add({
+        title: titledom || "提示",
+        text: msgdom,
+        sticky: sticky || false,
+        fade: false,
+        time: 3000,
+        class_name: 'gritter-light gritter-center',
+    });
+}
+
+function clear_message() {
+    $.gritter.removeAll();
+}

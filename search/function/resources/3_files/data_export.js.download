@@ -1,0 +1,307 @@
+<!--导入结果-->
+ex_field_str = ['<div id="export_field_dialog" class="modal in" data-backdrop="static" tabindex="-1">',
+    '<div class="modal-dialog" style="width:300px;">',
+    '<div class="modal-content">',
+    '<div class="modal-header">',
+        '<button type="button" class="close" data-dismiss="modal">×</button>',
+        '<strong>选择导出字段</strong>',
+    '</div>',
+    '<div class="modal-body">',
+        '<form id="export_field_form" name="export_field_form" action="" method="post" class="center">',
+            '<select id="export_field_select" name="export_field_select" multiple="multiple" size="15" style="width:265px;">',
+
+            '</select>',
+        '</form>',
+    '</div>',
+    '<div class="modal-footer">',
+         '<button export_type="excel" class="export_submit_btn btn btn-sm btn-primary">导出EXCEL</button>&nbsp;',
+         '<button export_type="dbf" class="export_submit_btn btn btn-sm btn-primary">导出DBF</button>&nbsp;',
+         '<button export_type="txt" class="export_submit_btn btn btn-sm btn-primary">导出TXT</button>',
+    '</div>',
+    '</div>',
+    '</div>',
+'</div>'].join('');
+
+ex_base_str = ['<div id="export_base_dialog" class="modal in" data-backdrop="static" tabindex="-1">',
+    '<div class="modal-dialog">',
+    '<div class="modal-content">',
+    '<div class="modal-header">',
+        '<button type="button" class="close" data-dismiss="modal">×</button>',
+        '<strong>正在导出......</strong>',
+    '</div>',
+
+    '<div class="modal-body">',
+        '<div class="progress progress-striped">',
+            '<div id="base_export_progressbar" class="progress-bar progress-bar-success"></div>',
+        '</div>',
+
+        '<div id="base_export_download" align="center">',
+            '<a id = "base_export_downloadurl" class="one_chance" href="#">导出完成，点击此处下载</a>',
+        '</div>',
+
+        '<div id="base_export_error" align="center">',
+            '导出失败!',
+        '</div>',
+
+        '<div id="base_export_detail" align="center"></div>',
+    '</div>',
+
+    '<div class="modal-footer">',
+        '<div id="base_export_close" align="center">',
+            '<a id = "base_export_close_btn" class="btn btn-mini btn-primary" href="#">关闭窗口</a>',
+        '</div>',
+
+        '<div id="base_export_stop" align="center">',
+            '<a id="base_export_background_btn" class="btn btn-mini btn-primary" href="#">后台执行</a>',
+            '<a id="base_export_stop_btn" class="btn btn-mini btn-grey" href="#">停止</a>',
+        '</div>',
+    '</div>',
+    '</div>',
+    '</div>',
+'</div>'].join('');
+
+;(function($) {
+    //变量初始化
+    var timer1, timer2;
+    var delay = 3000;
+
+    window.export_eid = '';
+    window.export_url = '';
+    window.export_data = {};
+    window.export_timer1 = 'notrun';
+
+    $.fn.data_export = function(opts) {
+        // 导出框变量
+        var ex_field_dia =$(ex_field_str);
+        var ex_base_dia =$(ex_base_str);
+
+        // 获取导出状态
+        function get_export_progress(){
+            // 组装post export_data
+            $.extend(window.export_data, {
+                'request':'get',
+                'eid': window.export_eid,
+            });
+
+            $.ajax({
+                url:export_url,
+                dataType:"json",
+                data:window.export_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    clearInterval(timer2);
+                    ex_base_dia.find("#base_export_progressbar").attr("style", "width:"+data['percentage']+";");//进度条更新
+                    ex_base_dia.find("#base_export_detail").html(data['progress']);
+                    if(data['ret'] == 'finished'){//是否结束
+                        ex_base_dia.find("#base_export_download").show();
+                        ex_base_dia.find("#base_export_progressbar").attr("style", "width:100%;");
+
+                        ex_base_dia.find("#base_export_close").show();
+                        ex_base_dia.find("#base_export_detail").hide();
+                        ex_base_dia.find("#base_export_stop").hide();
+
+                        var download_element = ex_base_dia.find("#base_export_downloadurl");
+                        download_element.html('导出完成，请点击此处下载');
+                        download_element.attr('href', data['downloadurl']).click(function () {
+                            $(this).html('下载中，请稍后...');
+                            window.location.href = $(this).attr('href');
+                            $(this).attr('href', '#').addClass('text-muted');
+                        });
+
+                        clearInterval(timer1);
+                        window.export_timer1 = 'notrun';
+                    }
+                    else if(data['ret'] == 'stoped'){
+                        var message = data.message || '处理错误！';
+                        ex_base_dia.find("#base_export_error").html(message).show();
+
+                        ex_base_dia.find("#base_export_close").show();
+                        ex_base_dia.find("#base_export_detail").hide();
+                        ex_base_dia.find("#base_export_stop").hide();
+                        clearInterval(timer1);
+                        window.export_timer1 = 'notrun';
+                    }
+                }
+            });
+        }
+
+        // 发出开始导出请求
+        function start_export_handel(){
+            // 组装post export_data
+            $.extend(window.export_data, {
+                'request':'start',
+                'eid': window.export_eid
+            });
+
+            $.ajax({
+                url:export_url,
+                dataType:"json",
+                data:window.export_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    if(data['ret'] == 'started'){//请求成功，初始化进度条，开始获取进度
+                        if(window.export_timer1 == 'notrun'){
+                            window.export_eid = data['eid'];
+                            ex_field_dia.modal('hide');
+                            ex_base_dia.modal('show');
+                            ex_base_dia.find("#base_export_download").hide();
+                            ex_base_dia.find("#base_export_error").hide();
+                            ex_base_dia.find("#base_export_close").hide();
+
+                            ex_base_dia.find("#base_export_progressbar").attr("style", "width:0%;").show();
+                            ex_base_dia.find("#base_export_detail").html('').show();
+                            ex_base_dia.find("#base_export_stop").show();
+
+                            window.export_timer1 = 'running';
+                            timer1 = setInterval(get_export_progress,delay);//循环获取导出状态
+                        }
+                        clearInterval(timer2);
+                    }
+                }
+            });
+        }
+
+        // 外部调用函数  用于开始导出数据
+        function start_export(){
+            // 附加参数
+            var _extra_datas = window._extra_datas || {};
+            try {
+                var mix = eval(context.attr("extra-data"));  // 数据
+                if(typeof mix == 'object') _extra_datas = mix;
+
+                context.trigger("extra-data");  // 控件数据
+                $.extend(_extra_datas, context.data("extra-data"));
+            } catch (e) {console.log(e);}
+
+            $.extend(window.export_data, _extra_datas);
+            $.extend(window.export_data, options.data);
+
+            // 点击后立即隐藏字段选择弹出框
+            ex_field_dia.modal('hide');
+
+            if(timer2) clearInterval(timer2);
+            start_export_handel();
+            timer2 = setInterval(start_export_handel, delay);
+        }
+
+        // 初始化导出框多选列表
+        function init_export_dialog() {
+            var export_columns = options['export_columns'] || '';
+            var field_select_dom = ex_field_dia.find('select#export_field_select').empty();
+            var _ea = export_columns.split(',');
+            for (i=0; i<_ea.length; i++){
+                var val = $.trim(_ea[i]);
+                field_select_dom.append("<option value='"+val+"'>"+val+"</option>");
+            }
+        }
+
+        // 设置导出windows.export_url
+        function set_windows_export_url() {
+            // 获取 export_url
+            var export_url = options['export_url'];
+            export_url = export_url || context.attr('href') || 'data_export/';
+
+            // export_url get参数
+            var search = $.query.load(window.location.search),
+                params = $.query.load(export_url);
+            for(var key in params.keys)
+                search = search.set(key, params.get(key));
+
+            // 由于自动转换 param[0]=01&param[1]=02
+            search_str = search.toString().replace(/%5B(\d+)%5D/g, '%5B%5D').replace(/%2B/, '');
+            window.export_url = export_url.split("?")[0] + search_str;
+        }
+
+        // 点击停止导出
+        ex_base_dia.find("#base_export_stop_btn").off("click").click(function(e){
+            // 提前关闭进度框
+            e.preventDefault();
+            ex_base_dia.modal('hide');
+
+            // 组装post export_data
+            $.extend(window.export_data, {
+                'request':'stop',
+                'eid': window.export_eid
+            });
+
+            $.ajax({
+                url:export_url,
+                dataType:"json",
+                data: window.export_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    if(data['ret'] == 'stoped'){ //请求成功，已经停止
+                        clearInterval(timer1);
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+
+        // 关闭及后台运行
+        ex_base_dia.find("#base_export_close_btn, #base_export_background_btn").off("click").click(function(e){
+            e.preventDefault();
+            ex_base_dia.modal('hide');
+            window.location.reload();
+        });
+
+        // 开始导出按钮
+        ex_field_dia.find(".export_submit_btn").off("click").click(function(){
+            var field_select_dom = ex_field_dia.find('select#export_field_select');
+            window.export_data['export_fields'] = field_select_dom.val();
+            window.export_data['type'] = $(this).attr('export_type') || 'excel';
+            start_export();
+        });
+
+        // 总入口
+        var context = $(this);
+        var options = $.extend({},$.fn.data_export.defaults,opts);
+
+        function check_to_start(){
+            init_export_dialog(); // 初始化多选列表
+            set_windows_export_url(); // 设置导出windows.export_url
+
+            // 执行导出操作
+            var export_columns = options['export_columns'] || '';
+            if (export_columns) ex_field_dia.modal("show");
+            else {
+                window.export_data['export_fields'] = []; // 清空其他途径设置的值
+                window.export_data['type'] = 'excel';
+                start_export();
+            }
+        }
+
+        $(this).click(function(e){
+            e.preventDefault();
+            // 初始化
+            context = $(this);
+
+            // 是否可操作【如是否勾选了等】
+            try { if (!eval($(this).attr('is-valid') || 'true')) return true; }
+            catch (e) { console.log('bad valid eval'); }
+
+            // 操作确认
+            var _confirm_infos = $(this).attr('confirm-info');
+            try { _confirm_infos = eval($(this).attr('confirm-info')); } catch (e) {}
+
+            if(_confirm_infos) {
+                var title = $(this).attr('confirm-title') || '温馨提示';
+                show_common_dialog(_confirm_infos, function (ctx, data) {
+                    window._extra_datas = data;
+                    check_to_start();
+                }, title);
+            } else {
+                check_to_start();
+            }
+        });
+    };
+
+    //定义默认
+    $.fn.data_export.defaults = {
+
+    };
+
+})(jQuery);

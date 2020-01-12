@@ -1,0 +1,128 @@
+// 此文件包含业务相关初始化操作，如
+// 1. 自动完成组件的初始化
+// 2. 特殊页面组件的样式调整等
+
+$(document).ready(function () {
+    // Active导航路径
+    var relative_path = location.pathname + "?" + location.search;
+    if (!hightlight_left_sidebar(relative_path))
+        hightlight_left_sidebar(ace.storage.get("hightlightpath"));
+
+    // 输入文字，自动完成组件
+    init_is_pure_href();
+    init_auto_complete('.autocomplete');
+
+    // Pannel Trigger
+    $(".pannel-trigger").click(function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var query = $.query.load(href);
+        initPanel(href.split('?')[0] + query.set('is_pannel', 1), 1000, false, {is_pannel:true});
+    });
+});
+
+// 初始化 is_pure
+function init_is_pure_href() {
+    if ($.query.get('is_pure') !== true && $.query.get('is_pure') !== '') {
+        $('a[href]').each(function () {
+            var href = $(this).attr('href');
+            if (href.indexOf("#")>=0) return true;
+            if (href.indexOf("javascript")>=0) return true;
+
+            var query = $.query.load(href);
+            $(this).attr('href', href.split('?')[0] + query.set('is_pure', 1));
+        })
+    }
+}
+
+
+// $.query相同参数个数
+function same_keys_number(child, father) {
+    var sameArray = new Array();
+    for (var k in child.keys) {
+        if (child.get(k) === father.get(k))
+            sameArray.push(k);
+    }
+    return sameArray.length;
+};
+
+// 左侧导航active高亮
+function hightlight_left_sidebar(path) {
+    if (!path) return false;
+
+    query = $.query.load(path);
+    path = path.split("?")[0].replace(/(^\/)|(\/$)/g, "");
+
+    target = null;
+    weight = -1;  //查找匹配项
+    $("#sidebar2 a").each(function () {
+        var href = $(this).attr("href");
+        var href_query = $.query.load(href);
+        var href_path = href.split("?")[0].replace(/(^\/)|(\/$)/g, "");
+
+        if (path == href_path) { //路径匹配
+            cur_weight = same_keys_number(href_query, query);
+            if (cur_weight > weight) {  //匹配键更多
+                target = $(this);
+                weight = cur_weight;
+            }
+        }
+    });
+
+    if (target) {
+        target.parent("li").addClass("active");
+        ace.storage.set("hightlightpath", target.attr("href"));
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * 自动完成组件初始化
+ * @param selector
+ */
+function init_auto_complete(selector) {
+    $(selector).each(function () {
+        var url = $(this).attr("source_url");
+        if(!url) return true; //
+
+        // 设置自动完成
+        $(this).css({'font-size': '12px'});
+        var source = new Bloodhound({
+            remote: {
+                wildcard: 'QUERY',
+                url: url.split("?")[0] + $.query.load(url).set('key', 'QUERY')
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        });
+
+        var empty = $(this).attr("empty") || "无匹配结果";
+        var display = $(this).attr("display") || "value";
+        var suggestion = $(this).attr("suggestion") || "<div>{{label}}</div>";
+        $(this).typeahead({minLength: 1, highlight: true}, {
+            templates: {
+                empty: empty,
+                suggestion: Handlebars.compile(suggestion),
+            }, name: 'default', display: display, source: source, limit: 100,
+        });
+
+        // 数据初始化，Suggest显示组件
+        var suggest_field = $(this).attr('suggest_field') || 'brief';
+        var suggest_target = $(this).attr('suggest_target');
+        function resultCall(datums) {
+            console.log(datums[0]);
+            if(suggest_target && datums.length == 1)
+                $(suggest_target).html(datums[0][suggest_field]);
+        }
+        source.search($(this).val(), resultCall, resultCall);
+
+        // 选择后事件回调
+        $(this).bind('typeahead:select', function (ev, suggestion) {
+            console.log(suggestion);
+            if(suggest_target)
+                $(suggest_target).html(suggestion[suggest_field]);
+        });
+    });
+}

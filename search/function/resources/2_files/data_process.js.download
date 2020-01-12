@@ -1,0 +1,245 @@
+proc_base_str = ['<div id="process_base_dialog" class="modal in" data-backdrop="static" tabindex="-1">',
+    '<div class="modal-dialog">',
+    '<div class="modal-content">',
+    '<div class="modal-header">',
+        '<button type="button" class="close" data-dismiss="modal">×</button>',
+        '<strong>正在处理中，请稍后......</strong>',
+    '</div>',
+
+    '<div class="modal-body">',
+        '<div class="progress progress-striped">',
+            '<div id="base_process_progressbar" class="progress-bar progress-bar-success"></div>',
+        '</div>',
+
+        '<div id="base_process_download" align="center">',
+            '<a id = "base_process_downloadurl" class="one_chance" href="#">操作完成，点击此处下载运行日志</a>',
+        '</div>',
+
+        '<div id="base_process_error" align="center">',
+            '任务处理失败!',
+        '</div>',
+
+        '<div id="base_process_detail" align="center"></div>',
+    '</div>',
+
+    '<div class="modal-footer">',
+        '<div id="base_process_close" align="center">',
+            '<a id = "base_process_close_btn" class="btn btn-mini btn-primary" href="#">关闭窗口</a>',
+        '</div>',
+
+        '<div id="base_process_stop" align="center">',
+            '<a id="base_process_background_btn" class="btn btn-mini btn-primary" href="#">后台运行</a>',
+            '<a id="base_process_stop_btn" class="btn btn-mini btn-grey" href="#">停止</a>',
+        '</div>',
+    '</div>',
+    '</div>',
+    '</div>',
+'</div>'].join('');
+
+;(function($) {
+    //变量初始化
+    var timer1, timer2;
+    var delay = 3000;
+
+    window.process_eid = '';
+    window.process_url = '';
+    window.process_data = {};
+    window.process_timer1 = 'notrun';
+
+    $.fn.data_process = function(opts) {
+        // 进度对话框变量
+        var proc_base_dia =$(proc_base_str);
+
+        // 获取运行进度状态
+        function get_process_progress(){
+            // 组装post process_data
+            $.extend(window.process_data, {
+                'request':'get',
+                'eid': window.process_eid,
+            });
+
+            $.ajax({
+                url:process_url,
+                dataType:"json",
+                data:window.process_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    clearInterval(timer2);
+                    proc_base_dia.find("#base_process_progressbar").attr("style", "width:"+data['percentage']+";");//进度条更新
+                    proc_base_dia.find("#base_process_detail").html(data['progress']);
+                    if(data['ret'] == 'finished'){//是否结束
+                        proc_base_dia.find("#base_process_download").show();
+                        proc_base_dia.find("#base_process_progressbar").attr("style", "width:100%;");
+
+                        proc_base_dia.find("#base_process_close").show();
+                        proc_base_dia.find("#base_process_detail").hide();
+                        proc_base_dia.find("#base_process_stop").hide();
+
+                        var download_element = proc_base_dia.find("#base_process_downloadurl");
+                        download_element.html('操作完成，点击此处下载');
+                        download_element.attr('href', data['downloadurl']).click(function () {
+                            $(this).html('下载中，请稍后...');
+                            window.location.href = $(this).attr('href');
+                            $(this).attr('href', '#').addClass('text-muted');
+                        });
+
+                        clearInterval(timer1);
+                        window.process_timer1 = 'notrun';
+                    }
+                    else if(data['ret'] == 'stoped'){
+                        var message = data.message || '处理错误！';
+                        proc_base_dia.find("#base_process_error").html(message).show();
+
+                        proc_base_dia.find("#base_process_close").show();
+                        proc_base_dia.find("#base_process_detail").hide();
+                        proc_base_dia.find("#base_process_stop").hide();
+                        clearInterval(timer1);
+                        window.process_timer1 = 'notrun';
+                    }
+                }
+            });
+        }
+
+        // 开始操作请求
+        function start_process_handler(){
+            // 组装post process_data
+            $.extend(window.process_data, {
+                'request':'start',
+                'eid': window.process_eid,
+            });
+
+            $.ajax({
+                url:process_url,
+                dataType:"json",
+                data:window.process_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    if(data['ret'] == 'started'){//请求成功，初始化进度条，开始获取进度
+                        if(window.process_timer1 == 'notrun'){
+                            window.process_eid = data['eid'];
+                            proc_base_dia.modal('show');
+                            proc_base_dia.find("#base_process_download").hide();
+                            proc_base_dia.find("#base_process_error").hide();
+                            proc_base_dia.find("#base_process_close").hide();
+
+                            proc_base_dia.find("#base_process_progressbar").attr("style", "width:0%;").show();
+                            proc_base_dia.find("#base_process_detail").html('').show();
+                            proc_base_dia.find("#base_process_stop").show();
+
+                            window.process_timer1 = 'running';
+                            timer1 = setInterval(get_process_progress,delay);//循环获取操作状态
+                        }
+                        clearInterval(timer2);
+                    }
+                }
+            });
+        }
+
+        // 外部调用函数  用于开始导出数据
+        function start_process(){
+            // 附加参数
+            var _extra_datas = window._extra_datas || {};
+            try {
+                var mix = eval(context.attr("extra-data"));  // 数据
+                if(typeof mix == 'object') $.extend(_extra_datas, mix);
+
+                context.trigger("extra-data");  // 控件数据
+                $.extend(_extra_datas, context.data("extra-data"));
+            } catch (e) {console.log(e);}
+
+            $.extend(window.process_data, _extra_datas);
+            $.extend(window.process_data, options.data);
+
+            if(timer2) clearInterval(timer2);
+            start_process_handler();
+            timer2 = setInterval(start_process_handler,delay);
+        }
+
+        // 设置导出windows.process_url
+        function set_windows_process_url() {
+            var process_url = options['process_url'];
+            process_url = process_url || context.attr('href') || 'data_process/';
+
+            // process_url get参数
+            var search = $.query.load(window.location.search),
+                params = $.query.load(process_url);
+            for(var key in params.keys)
+                search = search.set(key, params.get(key));
+
+            // 由于自动转换 param[0]=01&param[1]=02
+            search_str = search.toString().replace(/%5B(\d+)%5D/g, '%5B%5D').replace(/%2B/, '');
+            window.process_url = process_url.split("?")[0] + search_str;
+        }
+
+        // 停止按钮
+        proc_base_dia.find("#base_process_stop_btn").off("click").click(function(e){
+            // 提前关闭进度框
+            e.preventDefault();
+            proc_base_dia.modal('hide');
+
+            // 组装post process_data
+            $.extend(window.process_data, {
+                'request':'stop',
+                'eid': window.process_eid
+            });
+
+            $.ajax({
+                url:process_url,
+                dataType:"json",
+                data:window.process_data,
+                cache:false,
+                type:"POST",
+                success: function(data){
+                    if(data['ret'] == 'stoped'){ //请求成功，已经停止
+                        clearInterval(timer1);
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+
+        // 关闭及后台运行
+        proc_base_dia.find("#base_process_close_btn, #base_process_background_btn").off("click").click(function(e){
+            e.preventDefault();
+            proc_base_dia.modal('hide');
+            window.location.reload();
+        });
+
+        // 总入口
+        var context = $(this);
+        var options = $.extend({},$.fn.data_export.defaults,opts);
+
+        $(this).click(function(e){
+            e.preventDefault();
+            context = $(this);
+
+            // 是否可操作【如是否勾选了等】
+            try { if (!eval($(this).attr('is-valid') || 'true')) return true; }
+            catch (e) { console.log('bad valid eval'); }
+
+            // 操作确认
+            var _confirm_infos = $(this).attr('confirm-info');
+            try { _confirm_infos = eval($(this).attr('confirm-info')); } catch (e) {}
+
+            if(_confirm_infos) {
+                var title = $(this).attr('confirm-title') || '温馨提示';
+                show_common_dialog(_confirm_infos, function (ctx, data) {
+                    window._extra_datas = data;
+                    set_windows_process_url(); // 获取 process_url
+                    start_process(); // 开始进度操作
+                }, title);
+            } else {
+                set_windows_process_url(); // 获取 process_url
+                start_process(); // 开始进度操作
+            }
+        });
+    };
+
+    //定义默认
+    $.fn.data_process.defaults = {
+
+    };
+
+})(jQuery);

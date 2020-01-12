@@ -1,0 +1,150 @@
+/***************     Ace Css Reset    ***************/
+.badge {padding: 2px 5px;}
+.label {display: inline-block;}
+.label.label-sm {padding: 3px 5px;}
+.label.arrowed-in-right,.label.arrowed-right {margin-right:1px;}
+
+.steps li .title {font-size:12px;}
+.dropdown-menu {min-width: 100px;}
+.dropdown-menu>li>a {font-size:12px;}
+.btn, .popover-title {font-size: 12px; text-shadow: none;}
+.alert, .widget-box {font-size:12px; line-height: 25px;}
+
+.popover {max-width:800px;}
+.popover .popover-content {padding: 8px; line-height: 25px;}
+
+#navbar.navbar {z-index: 1000}
+#sidebar.sidebar {z-index: 999}
+
+#sidebar.sidebar .nav-list {
+    border-bottom: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+#sidebar.sidebar .nav-list>li>a { line-height: 20px;}
+#sidebar.sidebar.sidebar-fixed+.main-content { padding-top: 0; }
+
+@media only screen and (max-width: 991px) {
+    #sidebar+.main-content { margin-top: 0!important; }
+    #sidebar2+.main-content { margin-top: 10px!important; }
+}
+
+#sidebar2.sidebar {
+    border-top-width: 1px; border-color: #D5D5D5;
+    box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+#sidebar2.sidebar:before {top: 0;}
+
+#sidebar2.sidebar .nav-wrap {overflow: hidden;}
+#sidebar2.sidebar .scroll-active{opacity: 0.5;}
+#sidebar2.sidebar .scroll-bar {opacity: 0.5; background-color: black; border-radius: 10px;}
+
+#sidebar2.sidebar.menu-min .nav-wrap {overflow: visible;}
+#sidebar2.sidebar.menu-min .scroll-active {opacity: 0;}
+#sidebar2.sidebar.menu-min .scroll-bar {opacity: 0;}
+
+.footer {padding-top: 45px;}
+.footer .footer-inner .footer-content {border-top: 1px solid #f0f0f0; padding:0; bottom:0;}
+
+/***************     General Css Reset    ***************/
+* {margin: 0; padding: 0; }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    font:13px/1.5 -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+a:hover, a:active{text-decoration: none}
+a, div, span, th, td, .form-control{font-size: 13px;}
+
+label, input, select, textarea{font-size: 13px!important;}
+label {cursor: pointer;}
+
+div.form-group input[type=radio]+.lbl {margin-top:6px!important;}
+div.form-group input[type=checkbox]+.lbl {margin-top:6px!important;}
+
+iframe {border: none; width: 100%; height: 100%}
+p {line-height: 25px;}
+
+input {height: 30px; border: 1px solid #ccc; padding: 3px}
+input[type=file] {border: none;}
+
+input[type=number] {-moz-appearance:textfield;}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0;}
+
+/***************     Component Css Definition    ***************/
+.control-label {padding: 6px 0 0;}
+.help-block {margin-bottom: 0;}
+
+.selected {background-color: #def9f9}
+.dataTable>tbody>tr.selected>td {background-color: #def9f9}
+.dataTable>tbody>tr.selected:hover>td {background-color: #def9f9}
+
+.highlight {font-size: 16px; color: #d00; font-weight: bold}
+.right-bottom {position:absolute; right: 10px; bottom: 10px;}
+
+.form-group {margin-bottom: 10px;}
+.form-group>div>label {height: 29px!important;}
+.has-error .form-control,
+.has-error .form-control:hover,
+.has-error .form-control:focus {border-color: #DD5A43}
+
+.chosen-container .chosen-single,
+.chosen-container .chosen-choices {
+    min-height: 34px; color: #757575;
+    background-color: white; border-color: #D5D5D5;}
+
+.modal-header {padding: 10px 15px; line-height: 30px;}
+.modal-body {padding: 10px;}
+.modal-footer {padding: 10px 15px; background-color: #f8f8f8;}
+.modal-footer .btn-sm {height: 30px; padding: 3px 9px;}
+
+.pagination {margin: 0 5px; float: right;}
+.gritter-light .gritter-item, .gritter-light .gritter-close,
+.gritter-light .gritter-bottom, .gritter-light .gritter-top {color: #333}
+.gritter-item-wrapper.gritter-light {background-color: #fff; color: #333; border: none;}
+/*.gritter-center {top: 10%}*/
+
+.widget-main {padding: 10px;}
+.widget-box.custom {margin: 0 0 10px; border-color: #D5D5D5;}
+.widget-box.custom>.widget-header {color: #333;}
+.widget-box.custom>.widget-header.only {border-bottom: none;}
+.widget-box.custom>.widget-title a {font-size: 12px;}
+.widget-toolbar>.nav-tabs>li.open:not(.active)>a {background-color: #4F99C6}
+
+.twitter-typeahead {width: 100%}
+.twitter-typeahead .tt-suggestion {font-size: 12px;}
+
+.table {margin-bottom: 10px;}
+.table tr {height: 34px;}
+.table thead tr {height: 34px; color: black; background: none;}
+.table tr th {line-height: 24px!important;}
+.table tr th:last-child {border-color: #ddd!important;}
+
+.table tbody tr td {line-height: 24px!important;}
+.table>tbody>tr>td, .table>thead>tr>th,
+.table>tbody>tr>th, .table>thead>tr>td{padding:3px 5px}
+
+.table td input, table td select {padding-top: 0; padding-bottom: 0; height: 30px!important;}
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th {border-bottom-width: 1px;}
+
+.table-functions {
+    width: 100%;
+    border-bottom: none;
+    text-align: right;
+    box-shadow: 0 0 1px #cfcfcf;
+}
+.table-functions a {margin-left: 1px; border: none; padding: 4px 8px}
+.ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-break:keep-all;}
+
+.no-select {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+}
+.scroll-active{background:none;}
+.scroll-bar {opacity: 0.8; background-color: #bbb; border-radius: 10px;}

@@ -1,0 +1,97 @@
+function goto(){
+    var search = $.query.load(window.location.href);
+    search = search.SET('page', $("#thepage").val());
+    search = search.SET('perpage', $("#theperpage").val());
+
+    // 由于自动转换 param[0]=01&param[1]=02
+    window.location.href = search.toString().replace(/%5B(\d+)%5D/g, '%5B%5D').replace(/%2B/, '');
+}
+function page_button(page_start, page_end, page_cur, all_count, div_insert) {
+    function print_page(a_str, page, a_class) {
+        var $arch = $('<a>').html(a_str).attr('href','#').click(function (e) {
+            e.preventDefault();
+            var search = $.query.load(window.location.href);
+            search = search.set('page', page);
+
+            // 由于自动转换 param[0]=01&param[1]=02
+            window.location.href = search.toString().replace(/%5B(\d+)%5D/g, '%5B%5D').replace(/%2B/, '');
+        });
+
+        var $li = $('<li>').addClass(a_class || '').append($arch);
+        $li.appendTo(div_insert);
+    }
+
+    function goto_page() {
+        var arch_str = '' +
+            '<input type="text" id="thepage" name="page" value="1" '+
+                'style="height:31px;width:50px;margin:0 -1px 0 0;" />'+
+            '<select id="theperpage" style="height:31px;width:60px;" name="perpage">'+
+                '<option value="20" selected="selected">20</option>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>' +
+                '<option value="200">200</option>' +
+                '<option value="500">500</option>' +
+            '</select>' +
+            '<a id="page_go" class="btn btn-white pull-right" onclick="goto();">前往</a>';
+        $('<li>').append($(arch_str)).appendTo(div_insert);
+    }
+
+    if (page_start == page_end) {
+        return;
+    }
+    if (page_cur != page_start) {
+        var a_str = '首页';
+        print_page(a_str, page_start);
+    }
+
+    if (page_cur > page_start) {
+        var a_str = '上一页';
+        print_page(a_str, page_cur - 1);
+    }
+
+    var a = [ page_cur];
+    while (a.length < 5 && (a[0] > 1 || a[a.length - 1] < page_end)) {
+        if (a[0] > 1) {
+            a.unshift(a[0] - 1);
+        }
+        if (a[a.length - 1] < page_end) {
+            a.push(a[a.length - 1] + 1);
+        }
+    }
+    for (var i = 0; i < a.length; i++) {
+        var a_str = a[i];
+        if (a[i] == page_cur) {
+            print_page(a_str, a[i], "active");
+        } else {
+            print_page(a_str, a[i]);
+        }
+    }
+    if (page_cur < page_end) {
+        var a_str = '下一页';
+        print_page(a_str, page_cur + 1);
+    }
+    if (page_cur != page_end) {
+        var a_str = '末页';
+        print_page(a_str, page_end);
+    }
+
+    var a_str ='页次：'+page_cur+'/'+page_end+ '，共计'+all_count+'条记录';
+    print_page(a_str, page_start, 'disabled');
+    goto_page(); // 跳转
+
+    $("#thepage").val($.query.GET('page') || '1');
+    $("#theperpage").val($.query.GET('perpage') || '20');
+}
+
+;(function($) {
+    $.fn.page_button= function(start_page, end_page, cur_page, all_count) {
+        return this.each(function() {
+            var obj = $(this);
+            page_button(start_page, end_page, cur_page, all_count, obj);
+        });
+        // each end
+    };
+
+    //定义默认
+    $.fn.page_button.defaults = {};
+})(jQuery);

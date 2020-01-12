@@ -4,5 +4,7 @@ from . import views
 app_name = "search"
 urlpatterns = [
     path('',views.index,name = 'index'),
-    path('<int:lesson_id>/',views.detail,name = "detail")
+    path('detail/<int:lesson_id>/',views.detail,name = "detail"),
+    path('modify/',views.modify,name = "modify"),
+    path('add/',views.add,name = "add"),
 ]
