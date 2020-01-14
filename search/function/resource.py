@@ -13,7 +13,7 @@ def pPT(): #pPT: print Process Time
     return '[' + __getTime() + ']'
 def lpr(str): #lpr: log print
     if (debug == 0) print(pPT(),str)
-def refresh_Resources(debugOptions = 0):
+def refresh_Resources(username,password,debugOptions = 0):
     global debug
     debug = debugOptions
     lpr("Begin to do the Configurations.")
@@ -28,8 +28,8 @@ def refresh_Resources(debugOptions = 0):
     usernameInput = driver.find_element_by_name('TextBoxUserName')
     passwordInput = driver.find_element_by_name('TextBoxPassword')
     LoginButton = driver.find_element_by_name('ButtonLogin')
-    usernameInput.send_keys('19211423')
-    passwordInput.send_keys('jkw6766034')
+    usernameInput.send_keys(username)
+    passwordInput.send_keys(password)
     LoginButton.click()
     lpr("Complete the Login.")
     lpr("Open the Manage Page.")
@@ -63,4 +63,4 @@ def refresh_Resources(debugOptions = 0):
             next_page.click()
         except:
             quit()
-refresh_Resources()
+refresh_Resources("","")
