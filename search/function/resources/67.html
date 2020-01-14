@@ -1,0 +1,1847 @@
+<html lang="en"><head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <title>北京交通大学教务管理信息系统</title>
+  <meta name="description" content="overview &amp; stats">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/components/chosen/chosen.min.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/components/jquery.gritter/css/jquery.gritter.min.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css">
+
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/ace-fonts.min.css">
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/ace.min.css" class="ace-main-stylesheet">
+
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/ace-part2.min.css" class="ace-main-stylesheet" />
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/ace-ie.min.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="/static/lib/ace1.4/dist/css/ace-skins.min.css">
+  <link rel="stylesheet" href="/static/css/base.css?v=2.5.3">
+
+  <script src="/static/lib/ace1.4/components/jquery.1x/dist/jquery.min.js"></script>
+  <script src="/static/lib/jquery/jquery.query.js"></script>
+  <script src="/static/lib/jquery/jquery.validate.min.js"></script>
+  <script src="/static/lib/jquery/jquery.validate.ext.js"></script>
+  
+<style>@keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-moz-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-webkit-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-ms-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-o-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}.ace-save-state{animation-duration:10ms;-o-animation-duration:10ms;-ms-animation-duration:10ms;-moz-animation-duration:10ms;-webkit-animation-duration:10ms;animation-delay:0s;-o-animation-delay:0s;-ms-animation-delay:0s;-moz-animation-delay:0s;-webkit-animation-delay:0s;animation-name:nodeInserted;-o-animation-name:nodeInserted;-ms-animation-name:nodeInserted;-moz-animation-name:nodeInserted;-webkit-animation-name:nodeInserted}</style></head>
+
+<body class="no-skin">
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-container" id="navbar-container">
+      <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+        <i class="ace-icon fa fa-navicon white bigger-150"></i>
+      </button>
+      <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler2" data-target="#sidebar2">
+        <i class="ace-icon fa fa-dashboard white bigger-150"></i>
+      </button>
+
+      <div class="navbar-header pull-left ace-navbar-brand">
+        <a href="#" class="navbar-brand">
+          <small>
+          
+            <i class="fa fa-leaf"></i>&nbsp; 北京交通大学教务管理信息系统
+          
+          </small>
+        </a>
+      </div>
+
+      <div class="navbar-buttons navbar-header pull-right" role="navigation">
+        <ul class="nav ace-nav" style="">
+          <li class="white">
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </li>
+
+          <li class="light-blue">
+            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+              <img class="nav-user-photo" style="height:32px;" src="/static/lib/ace1.4/assets/avatars/user.jpg">
+              <span class="user-info" style="line-height:17px;">
+                <small>欢迎您，</small>蒋楷文
+              </span>
+              <i class="ace-icon fa fa-caret-down"></i>
+            </a>
+
+            <ul style="width:125px;" class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+              <li class="divider"></li>
+              <li>
+                <a href="/client/logout/">
+                  <i class="ace-icon fa fa-power-off"></i>
+                  退出
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-buttons -->
+    </div> <!-- /.navbar-container -->
+  </div><!-- /.navbar-->
+
+  <div class="main-container">
+    <div id="sidebar" style="margin-top: 0;" class="sidebar sidebar-fixed h-sidebar navbar-collapse collapse" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
+      <div class="nav-wrap-up pos-rel"><div class="nav-wrap"><ul class="nav nav-list" style="position: relative; top: 0px; transition-property: top; transition-duration: 0.15s;">
+        <li>
+          <a href="#" style="width:42px;">
+            <span class="menu-text"></span>
+          </a>
+        </li>
+
+        
+            
+                <li>
+                  <a href="/notice/item/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-globe"></i> 通知公告
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/schoolcensus/schoolcensus/stuupdate/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-graduation-cap"></i> 学生信息
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/course_selection/courseselect/stuschedule/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-calendar"></i> 课程选课
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/examine/examplanstudent/stulist/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-area-chart"></i> 考务成绩
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/teaching_assessment/stu/list/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-balance-scale"></i> 评学
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/classroom/timeholdresult/room_stat/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-bank"></i> 教室资源
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/schoolcensus/schooltraininfo/studylist/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-tasks"></i> 学业进度
+                    </span>
+                  </a>
+                </li>
+            
+                <li>
+                  <a href="/transfer_major/transcollege/">
+                    <span class="menu-text ">
+                      <i class="menu-icon bigger-120 fa fa-share-alt"></i> 转专业和大类分流
+                    </span>
+                  </a>
+                </li>
+            
+        
+      </ul></div><div class="ace-scroll nav-scroll scroll-disabled"><div class="scroll-track" style="display: none;"><div class="scroll-bar" style="top: 0px; transition-property: top; transition-duration: 0.1s;"></div></div><div class="scroll-content" style=""><div></div></div></div></div>
+    </div>
+
+    <div class="main-content" style="margin-top: 50px;">
+      <div class="main-content-inner">
+        <!-- .sidebar-2 -->
+        <div id="sidebar2" class="sidebar sidebar-fixed navbar-collapse collapse" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
+          
+
+          <div class="nav-wrap-up pos-rel"><div class="nav-wrap"><div style="position: relative; top: 0px; transition-property: top; transition-duration: 0.15s;"><div class="sidebar-shortcuts" id="sidebar-shortcuts">
+            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+              欢迎您，
+              <strong class="green">
+                蒋楷文
+              </strong>
+            </div>
+          </div><ul class="nav nav-list">
+              
+    
+    <li class="open">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-check-square-o"></i>
+            <span class="menu-text">信息查询</span>
+        </a>
+        <ul class="submenu nav-hide">
+            
+                <li>
+                    <a href="/course_selection/courseselect/stuschedule/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">本学期课表</span>
+                    </a>
+                </li>
+            
+                <li class="active">
+                    <a href="/course_selection/courseselect/list_arrange/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">全校开设课堂</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <li class="open">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-check-square-o"></i>
+            <span class="menu-text">选课</span>
+        </a>
+        <ul class="submenu nav-hide">
+            
+                <li>
+                    <a href="/course_selection/courseselecttask/selects/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">网上选课</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/course_selection/courseselecttask/schedule/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">选课课表</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/course_selection/courseselecttask/conflict/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">冲突课程</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/course_selection/courseselecttask/remains/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">课余量查询</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/course_selection/courseselecttask/stoped/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">停开课查询</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <li class="open">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-check-square-o"></i>
+            <span class="menu-text">免听</span>
+        </a>
+        <ul class="submenu nav-hide">
+            
+                <li>
+                    <a href="/course_selection/courseselectabsent/absent_list/">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <span class="menu-text">免修申请</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+
+<script type="application/javascript">
+    $(".submenu a").each(function () {
+       var query = $.query.load($(this).attr("href"));
+       if(query.get('target'))
+           $(this).attr('target', query.get('target'))
+    });
+</script>
+
+
+          </ul></div></div><div class="ace-scroll nav-scroll scroll-disabled"><div class="scroll-track" style="display: none;"><div class="scroll-bar" style="top: 0px; transition-property: top; transition-duration: 0.1s;"></div></div><div class="scroll-content" style=""><div></div></div></div></div><!-- /.nav-list -->
+
+          <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse" data-target="#sidebar2" style="z-index: 1;">
+            <i id="sidebar-toggle-icon" class="fa-angle-double-left  ace-icon fa" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+          </div>
+        </div>
+
+        <div class="main-content" style="padding: 0px 10px;">
+          
+<div class="widget-box custom no-padding-bottom">
+    <div class="widget-header">
+        <span class="widget-title">
+            <i class="ace-icon fa fa-home home-icon bigger-125"></i>
+            <span>2019-2020-2学期 全校开设课堂</span>  
+        </span>
+
+        <div class="widget-toolbar">
+            <a href="#" data-action="collapse">
+                <i class="ace-icon fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main no-padding-bottom">
+        <form method="get" class="row">
+            <div class="form-group col-lg-2 col-md-3 col-sm-6 col-sx-12">
+                <select class="form-control " name="xsh" id="id_xsh">
+                    <option value="">-- 开设学院 --</option>
+                    
+                    <option value="00">教务处</option>
+                    
+                    <option value="01">其他部处</option>
+                    
+                    <option value="011">心理咨询中心</option>
+                    
+                    <option value="012">团委</option>
+                    
+                    <option value="013">选培办</option>
+                    
+                    <option value="014">招生与就业工作处（就业指导中心）</option>
+                    
+                    <option value="10">电子信息工程学院</option>
+                    
+                    <option value="20">机械与电子控制工程学院</option>
+                    
+                    <option value="30">土木建筑工程学院</option>
+                    
+                    <option value="32">建筑与艺术学院</option>
+                    
+                    <option value="40">经济管理学院</option>
+                    
+                    <option value="50">交通运输学院</option>
+                    
+                    <option value="60">法学院</option>
+                    
+                    <option value="61">语言与传播学院</option>
+                    
+                    <option value="62">马克思主义学院</option>
+                    
+                    <option value="65">体育部</option>
+                    
+                    <option value="70">理学院</option>
+                    
+                    <option value="80">计算机与信息技术学院</option>
+                    
+                    <option value="85">软件学院</option>
+                    
+                    <option value="90">电气工程学院</option>
+                    
+                    <option value="wh10">[威海] 电子信息工程学院 </option>
+                    
+                    <option value="wh30">[威海] 土木建筑工程学院 </option>
+                    
+                    <option value="wh32">[威海] 建筑与艺术学院 </option>
+                    
+                    <option value="wh40">[威海] 经济管理学院 </option>
+                    
+                    <option value="wh80">[威海] 计算机与信息技术学院 </option>
+                    
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-6 col-sx-12">
+                <div class="form-group">
+                    <input class="form-control" placeholder="课程号|课程名" name="kch" type="text" title="课程号|课程名">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-sx-12">
+                <div class="form-group">
+                    <input class="form-control" placeholder="课序号" name="kcm" type="text" title="课序号">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-sx-12">
+                <div class="form-group">
+                    <input type="submit" name="submit" class="btn btn-xs btn-success" value=" 查 询 ">
+                </div>
+            </div>
+        <input type="hidden" name="has_advance_query" value=""></form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th width="95">学年学期</th>
+        <th>开课学院</th>
+        <th>课程</th>
+        <th>教师</th>
+        <th>学分</th>
+        <th>容量</th>
+        <th>余量</th>
+        <th width="80">周次</th>
+        <th>时间</th>
+        <th>地点</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [07]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            缪克英<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">170</td>
+                    <td rowspan="3">170</td>
+
+                    <td>第01-16周</td>
+                    <td>星期三 第1节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期一 第2节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [08]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            周君灵<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">200</td>
+                    <td rowspan="3">200</td>
+
+                    <td>第01-16周</td>
+                    <td>星期三 第1节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期一 第2节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [09]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            钟波<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">200</td>
+                    <td rowspan="3">200</td>
+
+                    <td>第01-16周</td>
+                    <td>星期三 第1节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期一 第2节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [10]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            刘国忠<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">160</td>
+                    <td rowspan="3">160</td>
+
+                    <td>第01-16周</td>
+                    <td>星期三 第1节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期一 第2节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [11]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            冯国臣<br>
+                        
+                            张后扬<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">165</td>
+                    <td rowspan="3">165</td>
+
+                    <td>第01-16周</td>
+                    <td>星期三 第1节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期一 第2节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [12]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            冯丽荣<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">180</td>
+                    <td rowspan="3">180</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY107</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [13]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            刘明惠<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">175</td>
+                    <td rowspan="3">175</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [14]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            刘翠君<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">155</td>
+                    <td rowspan="3">155</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF604</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [15]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            邓小琴<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">195</td>
+                    <td rowspan="3">195</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [16]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            吴鹄<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">195</td>
+                    <td rowspan="3">195</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY209</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [17]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            俞勤<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">160</td>
+                    <td rowspan="3">160</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>YF303</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF303</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF303</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [18]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            聂君祥<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">160</td>
+                    <td rowspan="3">160</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>YF404</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF404</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF404</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [19]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            缪克英<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">190</td>
+                    <td rowspan="3">190</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>中102</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>中102</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>中102</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="4">2019-2020-2</td>
+                    <td rowspan="4">理学院</td>
+
+                    <td rowspan="4">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [20]
+                        </span>
+                    </td>
+                    <td rowspan="4" align="right">
+                        
+                            邵吉光<br>
+                        
+                    </td>
+                    <td rowspan="4">5.0</td>
+                    <td rowspan="4">120</td>
+                    <td rowspan="4">120</td>
+
+                    <td>第01-16周</td>
+                    <td>星期二 第6节</td>
+                    <td>DQ203</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期四 第6节</td>
+                    <td>DQ203</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期二 第7节</td>
+                    <td>DQ203</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期四 第7节</td>
+                    <td>DQ203</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [21]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            吴发恩<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">70</td>
+                    <td rowspan="3">70</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>YF108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF108</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF108</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L178Q
+                        微积分(B)Ⅱ [22]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            武清<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">70</td>
+                    <td rowspan="3">70</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>YF104</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF104</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>YF104</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="4">2019-2020-2</td>
+                    <td rowspan="4">理学院</td>
+
+                    <td rowspan="4">
+                        <span title="学时：112.0, 学分:7.0">
+                        73L183Q
+                        数学分析(A)Ⅱ [01]
+                        </span>
+                    </td>
+                    <td rowspan="4" align="right">
+                        
+                            何卫力<br>
+                        
+                    </td>
+                    <td rowspan="4">7.0</td>
+                    <td rowspan="4">185</td>
+                    <td rowspan="4">185</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SX304</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SX304</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第2节</td>
+                    <td>SX304</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01, 03, 05, 07, 09, 11, 13, 15周</td>
+                    <td>星期五 第6节</td>
+                    <td>SX304</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:2.0">
+                        73L205Q
+                        高等数学方法Ⅰ [01]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            何卫力<br>
+                        
+                    </td>
+                    <td rowspan="1">2.0</td>
+                    <td rowspan="1">245</td>
+                    <td rowspan="1">245</td>
+
+                    <td>第01-16周</td>
+                    <td>星期二 第6节</td>
+                    <td>SY108</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:2.0">
+                        73L205Q
+                        高等数学方法Ⅰ [02]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            邵吉光<br>
+                        
+                    </td>
+                    <td rowspan="1">2.0</td>
+                    <td rowspan="1">245</td>
+                    <td rowspan="1">245</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第6节</td>
+                    <td>SY208</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="2">2019-2020-2</td>
+                    <td rowspan="2">理学院</td>
+
+                    <td rowspan="2">
+                        <span title="学时：64.0, 学分:4.0">
+                        73L225Q
+                        大学基础物理Ⅱ [01]
+                        </span>
+                    </td>
+                    <td rowspan="2" align="right">
+                        
+                            王智<br>
+                        
+                    </td>
+                    <td rowspan="2">4.0</td>
+                    <td rowspan="2">120</td>
+                    <td rowspan="2">120</td>
+
+                    <td>第01-16周</td>
+                    <td>星期二 第5节</td>
+                    <td>DQ203</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期四 第1节</td>
+                    <td>DQ308</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:2.0">
+                        73L231Q
+                        纳米材料与技术 [01]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            由芳田<br>
+                        
+                    </td>
+                    <td rowspan="1">2.0</td>
+                    <td rowspan="1">120</td>
+                    <td rowspan="1">120</td>
+
+                    <td>第01-16周</td>
+                    <td>星期二 第4节</td>
+                    <td>SY207</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:2.0">
+                        73L242Q
+                        激光技术 [01]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            郑义<br>
+                        
+                    </td>
+                    <td rowspan="1">2.0</td>
+                    <td rowspan="1">150</td>
+                    <td rowspan="1">150</td>
+
+                    <td>第01-16周</td>
+                    <td>星期二 第6节</td>
+                    <td>SX204</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="2">2019-2020-2</td>
+                    <td rowspan="2">理学院</td>
+
+                    <td rowspan="2">
+                        <span title="学时：48.0, 学分:3.0">
+                        73L288Q
+                        无机及分析化学Ⅰ [01]
+                        </span>
+                    </td>
+                    <td rowspan="2" align="right">
+                        
+                            戴春爱<br>
+                        
+                    </td>
+                    <td rowspan="2">3.0</td>
+                    <td rowspan="2">110</td>
+                    <td rowspan="2">110</td>
+
+                    <td>第01-12周</td>
+                    <td>星期二 第2节</td>
+                    <td>DQ302</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-12周</td>
+                    <td>星期五 第2节</td>
+                    <td>DQ302</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="2">2019-2020-2</td>
+                    <td rowspan="2">理学院</td>
+
+                    <td rowspan="2">
+                        <span title="学时：48.0, 学分:3.0">
+                        73L288Q
+                        无机及分析化学Ⅰ [02]
+                        </span>
+                    </td>
+                    <td rowspan="2" align="right">
+                        
+                            康晓红<br>
+                        
+                    </td>
+                    <td rowspan="2">3.0</td>
+                    <td rowspan="2">110</td>
+                    <td rowspan="2">110</td>
+
+                    <td>第01-12周</td>
+                    <td>星期二 第2节</td>
+                    <td>DQ402</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-12周</td>
+                    <td>星期五 第2节</td>
+                    <td>DQ402</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="2">2019-2020-2</td>
+                    <td rowspan="2">理学院</td>
+
+                    <td rowspan="2">
+                        <span title="学时：48.0, 学分:3.0">
+                        73L288Q
+                        无机及分析化学Ⅰ [03]
+                        </span>
+                    </td>
+                    <td rowspan="2" align="right">
+                        
+                            刘莲云<br>
+                        
+                    </td>
+                    <td rowspan="2">3.0</td>
+                    <td rowspan="2">100</td>
+                    <td rowspan="2">100</td>
+
+                    <td>第01-12周</td>
+                    <td>星期一 第5节</td>
+                    <td>DQ210</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-12周</td>
+                    <td>星期三 第4节</td>
+                    <td>DQ414</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：16.0, 学分:1.0">
+                        73L773Q
+                        物理导论
+ [01]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            张兴华<br>
+                        
+                    </td>
+                    <td rowspan="1">1.0</td>
+                    <td rowspan="1">70</td>
+                    <td rowspan="1">70</td>
+
+                    <td>第09-16周</td>
+                    <td>星期二 第4节</td>
+                    <td>SY106</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="5">2019-2020-2</td>
+                    <td rowspan="5">理学院</td>
+
+                    <td rowspan="5">
+                        <span title="学时：56.0, 学分:3.5">
+                        73L775Q
+                        大学物理(Ⅰ)
+ [01]
+                        </span>
+                    </td>
+                    <td rowspan="5" align="right">
+                        
+                            陈发敏<br>
+                        
+                    </td>
+                    <td rowspan="5">3.5</td>
+                    <td rowspan="5">65</td>
+                    <td rowspan="5">65</td>
+
+                    <td>第01-08周</td>
+                    <td>星期一 第4节</td>
+                    <td>DQ409</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-08周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF614</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-08周</td>
+                    <td>星期五 第2节</td>
+                    <td>YF509</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第09-10周</td>
+                    <td>星期三 第2节</td>
+                    <td>YF614</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第09-10周</td>
+                    <td>星期五 第2节</td>
+                    <td>YF601</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="3">2019-2020-2</td>
+                    <td rowspan="3">理学院</td>
+
+                    <td rowspan="3">
+                        <span title="学时：80.0, 学分:5.0">
+                        73L776Q
+                        有机化学 [01]
+                        </span>
+                    </td>
+                    <td rowspan="3" align="right">
+                        
+                            胡红刚<br>
+                        
+                    </td>
+                    <td rowspan="3">5.0</td>
+                    <td rowspan="3">72</td>
+                    <td rowspan="3">72</td>
+
+                    <td>第01-16周</td>
+                    <td>星期一 第1节</td>
+                    <td>SX503</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第02, 04, 06, 08, 10, 12, 14, 16周</td>
+                    <td>星期五 第1节</td>
+                    <td>SY201</td>
+                </tr>
+                
+            
+                
+                <tr>
+                    <td>第01-16周</td>
+                    <td>星期三 第4节</td>
+                    <td>YF307</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:1.0">
+                        73S194Q
+                        物理实验Ⅰ [01]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            张丽梅<br>
+                        
+                    </td>
+                    <td rowspan="1">1.0</td>
+                    <td rowspan="1">260</td>
+                    <td rowspan="1">260</td>
+
+                    <td>第01, 08周</td>
+                    <td>星期六 第1节</td>
+                    <td>不要教室2</td>
+                </tr>
+                
+            
+        
+    
+        
+        
+            
+                
+                <tr>
+                    <td rowspan="1">2019-2020-2</td>
+                    <td rowspan="1">理学院</td>
+
+                    <td rowspan="1">
+                        <span title="学时：32.0, 学分:1.0">
+                        73S194Q
+                        物理实验Ⅰ [02]
+                        </span>
+                    </td>
+                    <td rowspan="1" align="right">
+                        
+                            牛原<br>
+                        
+                    </td>
+                    <td rowspan="1">1.0</td>
+                    <td rowspan="1">200</td>
+                    <td rowspan="1">200</td>
+
+                    <td>第01, 08周</td>
+                    <td>星期六 第1节</td>
+                    <td>不要教室2</td>
+                </tr>
+                
+            
+        
+    
+</tbody>
+
+</table>
+<ul class="pagination"> <li><a href="#">首页</a></li><li><a href="#">上一页</a></li><li><a href="#">65</a></li><li><a href="#">66</a></li><li class="active"><a href="#">67</a></li><li><a href="#">68</a></li><li><a href="#">69</a></li><li><a href="#">下一页</a></li><li><a href="#">末页</a></li><li class="disabled"><a href="#">页次：67/79，共计2364条记录</a></li><li><input type="text" id="thepage" name="page" value="1" style="height:31px;width:50px;margin:0 -1px 0 0;"><select id="theperpage" style="height:31px;width:60px;" name="perpage"><option value="20" selected="selected">20</option><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="500">500</option></select><a id="page_go" class="btn btn-white pull-right" onclick="goto();">前往</a></li></ul>
+
+        </div><!-- /.main-content -->
+
+        <div class="footer">
+          <div class="footer-inner">
+            <div class="footer-content">
+              <span class="blue">© 2015 - 2019 北京交通大学</span>
+            </div>
+          </div>
+        </div><!-- /.footer-->
+      </div><!-- /.main-content-inner -->
+    </div><!-- /.main-content -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+      <i class="ace-icon fa fa-angle-double-up icon-only bigger-180"></i>
+    </a>
+  </div><!-- /.main-container -->
+
+  <!-- 右侧弹出Iframe -->
+  
+
+  <script src="/static/lib/ace1.4/components/handlebars.js"></script>
+  <script src="/static/lib/ace1.4/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/static/lib/ace1.4/components/bootbox.js/bootbox.js"></script>
+  <script src="/static/lib/ace1.4/components/chosen/chosen.jquery.min.js"></script>
+  <script src="/static/lib/ace1.4/components/moment/moment.min.js"></script>
+  <script src="/static/lib/ace1.4/components/jquery.gritter/js/jquery.gritter.min.js"></script>
+  <script src="/static/lib/ace1.4/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="/static/lib/ace1.4/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+  <script src="/static/lib/ace1.4/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <script src="/static/lib/ace1.4/components/typeahead.js/dist/typeahead.jquery.js"></script>
+  <script src="/static/lib/ace1.4/components/typeahead.js/dist/bloodhound.js"></script>
+  <script src="/static/lib/ace1.4/components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+
+  <script src="/static/lib/ace1.4/dist/js/ace-extra.min.js"></script>
+  <script src="/static/lib/ace1.4/dist/js/ace-elements.min.js"></script>
+  <script src="/static/lib/ace1.4/dist/js/ace.min.js"></script>
+
+  <script src="/static/js/data_process.js?v=2.5.3"></script>
+  <script src="/static/js/data_import.js?v=2.5.3"></script>
+  <script src="/static/js/data_export.js?v=2.5.3"></script>
+  <script src="/static/js/page_button.js?v=2.5.3"></script>
+  <script src="/static/js/table_manage.js?v=2.5.3"></script>
+
+  <!-- 初始化操作 -->
+  <script src="/static/js/base.js?v=2.5.3"></script>
+  <script src="/static/js/ajax.js?v=2.5.3"></script>
+  <script src="/static/js/initialize.js?v=2.5.3"></script>
+
+  <!--[if lte IE 8]>
+    <script language="javascript">
+      alert("提示: 由于安全漏洞及性能原因，本系统对于IE6,7,8不完全支持。请使用Chrome或者IE高版本浏览器");
+    </script>
+  <![endif]-->
+
+
+  <!-- 初始化 -->
+  <script type="text/javascript">
+    
+      $("ul.pagination").page_button(
+        1, 79, 67, 2364);
+      $("#theperpage").val("30");
+    
+
+    // 消息弹窗
+    var message = "";
+    
+    if(message) show_message(message);
+
+    // 排序字段
+    window.csrf_token = '<input type="hidden" name="csrfmiddlewaretoken" value="3OkPkdctretYi8qTV6ddbApxBqWitynjPCIvAVFtVggfrXDEZQ7HmaXB171M7S1e">';
+    window.order = "-zxjxjhh,kch,kxh";
+    window.orderArr = order.split(',');
+
+    // 导入导出功能
+    $('a.data_process').data_process();
+    $('a.data_import').data_import({
+        'import_info_json': '',
+        'import_columns':'',
+        'import_columns_nomust': ''});
+    $('a.data_export').data_export({'export_columns':''});
+  </script>
+
+  <!-- Iframe面板 -->
+  <script type="text/javascript">
+      // 初始化面板
+      function initPanel(url, width, hide, data) {
+          if(window.parent != window) {
+              window.parent.initPanel(url, width, hide);
+              return;
+          }
+          $("#panel-container").css({width: width});
+          $("#panel-container .modal-body").empty().append("<iframe width='100%' height='100%'>");
+
+          var height = $(window).height() - 20;
+          $("#panel-container iframe").height(10000).attr("src", url).load(function() {
+              $(this).height(height);
+
+              var curWindow = $(this)[0].contentWindow;
+              curWindow.$("body").ace_scroll({size: height});
+              if (data) curWindow.pannelData = data;
+          });
+          if(!hide) togglePanel();
+      }
+
+      // 折叠面板
+      function togglePanel() {
+          if(window.parent != window) {
+              window.parent.togglePanel();
+              return;
+          }
+          $("#iframe-panel").ace_aside().modal("toggle");
+      }
+  </script>
+  
+  
+
+<div id="iframe-panel" class="modal aside aside-right aside-vc aside-fixed aside-dark aside-hidden no-backdrop" style="z-index:1039;" data-backdrop="false" data-offset="" data-fixed="true" data-placement="right" data-background="true" tabindex="-1">
+
+    <div id="panel-container" class="modal-dialog">
+        <div class="modal-content" style="border: none; background-color:white">
+            <div class="modal-body" style="padding: 10px;"> <!-- iframe --> </div>
+        </div>
+
+        <button style="position: absolute; left: 0; top: 0; width: 24px;" data-target="#iframe-panel" data-toggle="modal">
+            <i class="ace-icon fa fa-remove bigger-120 icon-only"></i>
+        </button>
+    </div>
+  </div></body></html>

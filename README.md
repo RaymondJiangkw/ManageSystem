@@ -12,6 +12,8 @@ ManageSystem
   * requests
   * lxml
   * bs4(BeautifulSoup)
+  * selenium
+    * 使用了ChromeCore(ChromeDriver 79.0.3945.16)，需要将之放入"\\selenium\\webdriver\\chrome\\"下，并将该目录添加到$PATH中.
 
 研发计划：
 --------
