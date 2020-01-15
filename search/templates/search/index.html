@@ -22,6 +22,8 @@
         <th>选择</th>
         <th>课程名称</th>
         <th>课程编号</th>
+        <th>课程教室</th>
+        <th>开课周数</th>
         <th>开课时间</th>
         <th>所属学院</th>
         <th>所属学校</th>
@@ -31,11 +33,9 @@
         <th><input type="checkbox" name="choose" id = "choose{{forloop.counter}}" value="{{lesson.id}}"></th>
         <th><a href="{% url 'search:detail' lesson.id%}">{{lesson.name}}</a></th>
         <th>{{lesson.lesson_id}}</th>
-        <th>
-          {% for class_time in lesson.class_time_set.all%}
-            <li>星期{{class_time.day}} 时间段：{{class_time.time}} 具体时间: {{class_time.interpretation}}</li>
-          {% endfor %}
-        </th>
+        <th>{{lesson.classroom}}</th>
+        <th>{{lesson.weeks}}</th>
+        <th>{{lesson.time}}</th>
         <th>{{lesson.collage}}</th>
         <th>{{lesson.school}}</th>
       </tr>

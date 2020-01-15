@@ -1,17 +1,53 @@
+<html>
+{% load static %}
+<link rel="stylesheet" type = "text/css" href="{% static 'search/detail_style.css' %}">
 <h1>{{lesson}}</h1>
 <ul>
   <h2>基本信息</h2>
-  <li><b>课程名称：</b>{{lesson.name}}</li>
-  <li><b>课程编号：</b>{{lesson.lesson_id}}</li>
-  <li><b>教师名称：</b>{{lesson.teacher}}</li>
-  <li><b>课程容量：</b>{{lesson.capacity}}</li>
-  <li><b>课程教师：</b>{{lesson.classroom}}</li>
-  <li><b>所属学院：</b>{{lesson.collage}}</li>
-  <li><b>所属学校：</b>{{lesson.school}}</li>
-  <li><b>补充信息：</b>{{lesson.supplement}}</li>
-  <h2>上课时间</h2>
-  {% for class_time in lesson.class_time_set.all%}
-    <li>星期{{class_time.day}} 时间段：{{class_time.time}} 具体时间: {{class_time.interpretation}}</li>
-  {% endfor %}
+  <table align = "center">
+    <tr>
+      <th>课程名称</th>
+      <th>{{lesson.name}}</th>
+    </tr>
+    <tr>
+      <th>课程编号</th>
+      <th>{{lesson.lesson_id}}</th>
+    </tr>
+    <tr>
+      <th>授课老师</th>
+      <th>{{lesson.teacher}}</th>
+    </tr>
+    <tr>
+      <th>课程容量</th>
+      <th>{{lesson.capacity}}</th>
+    </tr>
+    <tr>
+      <th>课程学分</th>
+      <th>{{lesson.score}}</th>
+    </tr>
+    <tr>
+      <th>开课周数</th>
+      <th>{{lesson.weeks}}</th>
+    </tr>
+    <tr>
+      <th>开课时间</th>
+      <th>{{lesson.time}}</th>
+    </tr>
+    <tr>
+      <th>所属学院</th>
+      <th>{{lesson.collage}}</th>
+    </tr>
+    <tr>
+      <th>所属学校</th>
+      <th>{{lesson.school}}</th>
+    </tr>
+    <tr>
+      <th>补充信息</th>
+      <th>{{lesson.supplement}}</th>
+    </tr>
+  </table>
 </ul>
+<div style = "text-align:right">
 <a href="/class_search/">返回到主页</a>
+</div>
+</html>

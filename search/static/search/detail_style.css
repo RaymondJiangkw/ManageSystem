@@ -1,0 +1,39 @@
+tr:nth-child(even) {background-color: #f2f2f2}
+table {
+  border-collapse: collapse;
+}
+
+table,th,td{
+
+  border: 1px solid black;
+}
+th,td{
+  text-align: left;
+  vertical-align: middle;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  text-align: center;
+  font-family: "楷体","serif","sans-serif";
+  font-weight: normal;
+  font-size: 20px;
+}
+td {
+  height: 50px;
+  vertical-align: middle;
+  background-color: #4CAF50;
+  color:white;
+}
+h1 {
+  font-family: "楷体";
+  text-align: center;
+}
+h2 {
+  font-family: "楷体";
+  text-align: center;
+}
+a {
+  font-family: "楷体";
+  text-align: right;
+}

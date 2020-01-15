@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Lesson
 # Create your views here.
 def index(request):
-    lessons = Lesson.objects.all()
+    lessons = Lesson.objects.all()[:50]
     context = {'lessons':lessons}
     return render(request,'search/index.html',context)
 def detail(request,lesson_id):
