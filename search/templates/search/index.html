@@ -5,13 +5,19 @@
 <h2>课程信息</h2>
 <div style="overflow-x:auto;">
   {% if lessons %}
-  <form action="{% url 'search:modify'%}" method="post">
-    {% csrf_token %}
     <div style="text-align:center">
       <p class = 'text' style = 'display:inline;font-weight:bold;'>检索(','分隔)：</p>
-      <input class = "text" type="text" name="keywords">
+      <input class = "text" type="text" name="keywords-name" placeholder = "<课程名称>">
+      <input class = "text" type="text" name="keywords-id" placeholder = "<课程编号>">
+      <input class = "text" type="text" name="keywords-week" placeholder="<开课周数>">
+      <input class = "text" type="text" name="keywords-time" placeholder="<开课时间>">
+      <input class = "text" type="text" name="keywords-collage" placeholder="<所属学院>">
+      <input class = "text" type="text" name="keywords-school" placeholder="<所属学校>">
       <input class = "text" type="submit" name="search" value="检索">
     </div>
+    <p></p>
+    <form action="{% url 'search:modify'%}" method="post">
+      {% csrf_token %}
     <div style="text-align:right">
       <a class = "text" href="{% url 'search:add'%}">添加</a>
       <p class = "text" style = "display:inline;">||</p>
@@ -30,7 +36,7 @@
       </tr>
       {% for lesson in lessons %}
       <tr>
-        <th><input type="checkbox" name="choose" id = "choose{{forloop.counter}}" value="{{lesson.id}}"></th>
+        <th><input type="checkbox" name="choose" id = "choose{{lesson.id}}" value="{{lesson.id}}"></th>
         <th><a href="{% url 'search:detail' lesson.id%}">{{lesson.name}}</a></th>
         <th>{{lesson.lesson_id}}</th>
         <th>{{lesson.classroom}}</th>
@@ -42,6 +48,20 @@
       {% endfor %}
     </table>
   </form>
+</div>
+<div style = "text-align:right">
+  {% if page != 1 %}
+    <a class = "text" href="\class_search\{{number}}\1">1</a>
+    <p class = "text" style = "display:inline;">...</p>
+    <a class = "text" href="\class_search\{{number}}\{{page_pre}}">{{page_pre}}</a>
+  {% endif %}
+    <p class = "text" style = "display:inline;">{{page}}</p>
+  {% if page != total_page%}
+    <a class ="text" href = "\class_search\{{number}}\{{page_next}}">{{page_next}}</a>
+    <p class = "text" style = "display:inline;">...</p>
+    <a class = "text" href="\class_search\{{number}}\{{total_page}}">{{total_page}}</a>
+  {% endif %}
+  <p class = "text">跳转、调整每页显示数目，请在“地址栏”操作</p>
 </div>
 {% else %}
 <p style = "text-align:center">没有可用的课程信息。</p>

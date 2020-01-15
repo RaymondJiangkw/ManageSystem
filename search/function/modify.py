@@ -32,3 +32,22 @@ def get_data():
                 data[9].append(parent_info[-2])
                 data[10].append(parent_info[-3])
     return data
+def read_from_csv(path,school):
+    data = [[],[],[],[],[],[],[],[],[],[],[]]
+    with open(path,encoding = 'utf-8') as f:
+        text = f.read()
+        text = text.split(';')
+        for item in text:
+            parent_info = item.split(',')
+            data[0].append(parent_info[3])
+            data[1].append(",".join(parent_info[4:-6]))
+            data[2].append(int(parent_info[-4]))
+            data[3].append(parent_info[-1])
+            data[4].append("")
+            data[5].append(parent_info[1])
+            data[6].append(school)
+            data[7].append(parent_info[2])
+            data[8].append(parent_info[-6])
+            data[9].append(parent_info[-2])
+            data[10].append(parent_info[-3])
+    return data

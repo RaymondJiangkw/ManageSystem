@@ -20,18 +20,25 @@
 * collage: indicate which collage this lesson belongs to.
 * school: specify which school this lesson belongs to.
 * lesson_id: indicate the id of the lesson.
-
-### Class_time
-* day: the representation of day
-* time: the time interval
-* system: the id of system
-* lesson[Foreign Key]: related to the lesson
-* interpretation: interpretation for the time
+* score: indicate the score given after finishing this lesson.
+* time: indicate when the lesson is held in the specific week.
+* weeks: indicate which weeks the lesson is held.
 
 ## Views
 ### index
 * display all classes.
 * Provide an input box to filter ideal classes.
-
+  * Regulations:
+    *
+* feature: In the Address-Blank bar, there are two slashes. The first element indicates how many items are there in one page. The second element indicates the index of this page.
 ### Detail
 * Give details about a specific class.
+
+## Function
+### get_data
+* get data from the web page from BJTU.
+### read_from_csv(path,school)
+* get data from a specific file.
+* Customs:
+  * use ';' to denote another item.
+  * use ',' to denote different property inside a item.
