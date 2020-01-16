@@ -29,13 +29,14 @@
 * display all classes.
 * Provide an input box to filter ideal classes.
   * Regulations:
-    * [] to indicate some ambiguous searching.
+    * '[]' to indicate some ambiguous searching.
       * ',' to list different items at the same position (enumeration).
       * '-':
         * '0-9' means {0,1,2,3,4,5,6,7,8,9}
         * 'a-z' means {a, b, c, d, ... , x, y, z}
         * 'A-Z' means {A, B, C, D, ... , X, Y, Z}
     * ';' to indicate different candidates
+    * '{}' to indicate precise matching.
 * feature: In the Address-Blank bar, there are two slashes. The first element indicates how many items are there in one page. The second element indicates the index of this page.
 ### Detail
 * Give details about a specific class.

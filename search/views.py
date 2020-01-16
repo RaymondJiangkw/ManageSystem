@@ -37,7 +37,7 @@ def __decode_left_bracket(string):
             for gene in generated:
                 result.append(pre_text + gene + latter_text)
     return result
-    
+
 def check_valid(string):
     left_bracket = 0
     for chr in string:
@@ -53,6 +53,7 @@ def check_valid(string):
 
 def __paraphrase(encoded_comp):
     para_result = []
+    encoded_comp = encoded_comp.strip()
     para_result.append(encoded_comp)
     if check_valid(encoded_comp):
         while (para_result[-1].find('[') != -1):
@@ -62,14 +63,18 @@ def __paraphrase(encoded_comp):
                 para_result.insert(0,decoded_text)
         return para_result
     else:
-        return []
+        return para_result
 
 def __single_compare(comp,desti):
-    comp = comp.strip()
-    comp = __paraphrase(comp)
     for cmp in comp:
-        if (desti.find(cmp) != -1):
+        if (cmp == ''):
             return True
+        if (cmp[0] == '{' and cmp[-1] == '}'):
+            if (desti == cmp[1:-1]):
+                return True
+        else:
+            if (desti.find(cmp) != -1):
+                return True
     return False
 
 def compare(comp_list,desti):
@@ -108,12 +113,20 @@ def index(request,number = 50,page = 1):
     }
     return render(request,'search/index.html',context)
 def filter(request):
+    # Split the filtering keywords
     lesson_name = str(request.POST['keywords_name']).split(';')
     lesson_id = str(request.POST['keywords_id']).split(';')
     lesson_week = str(request.POST['keywords_week']).split(';')
     lesson_time = str(request.POST['keywords_time']).split(';')
     lesson_collage = str(request.POST['keywords_collage']).split(';')
     lesson_school = str(request.POST['keywords_school']).split(';')
+    # Interpret the keywords
+    lesson_name = [__paraphrase(ele) for ele in lesson_name]
+    lesson_id = [__paraphrase(ele) for ele in lesson_id]
+    lesson_week = [__paraphrase(ele) for ele in lesson_week]
+    lesson_time = [__paraphrase(ele) for ele in lesson_time]
+    lesson_collage = [__paraphrase(ele) for ele in lesson_collage]
+    lesson_school = [__paraphrase(ele) for ele in lesson_school]
     Lessons = Lesson.objects.all()
     filter_result = []
     for lesson in Lessons:
