@@ -4,50 +4,66 @@
 <h1>{{lesson}}</h1>
 <ul>
   <h2>基本信息</h2>
-  <table align = "center">
-    <tr>
-      <th>课程名称</th>
-      <th>{{lesson.name}}</th>
-    </tr>
-    <tr>
-      <th>课程编号</th>
-      <th>{{lesson.lesson_id}}</th>
-    </tr>
-    <tr>
-      <th>授课老师</th>
-      <th>{{lesson.teacher}}</th>
-    </tr>
-    <tr>
-      <th>课程容量</th>
-      <th>{{lesson.capacity}}</th>
-    </tr>
-    <tr>
-      <th>课程学分</th>
-      <th>{{lesson.score}}</th>
-    </tr>
-    <tr>
-      <th>开课周数</th>
-      <th>{{lesson.weeks}}</th>
-    </tr>
-    <tr>
-      <th>开课时间</th>
-      <th>{{lesson.time}}</th>
-    </tr>
-    <tr>
-      <th>所属学院</th>
-      <th>{{lesson.collage}}</th>
-    </tr>
-    <tr>
-      <th>所属学校</th>
-      <th>{{lesson.school}}</th>
-    </tr>
-    <tr>
-      <th>补充信息</th>
-      <th>{{lesson.supplement}}</th>
-    </tr>
-  </table>
+  <div style = "text-align:right">
+  <a href="javascript:history.go(-1)">返回到主页</a>
+  </div>
+  <form action="{% url 'search:modify' lesson.id %}" method="post">
+    {% csrf_token %}
+    <table align = "center">
+      <tr>
+        <th>课程名称</th>
+        <th><input style = "width:100%;" type="text" name="name" value="{{lesson.name}}"></th>
+      </tr>
+      <tr>
+        <th>数据编号</th>
+        <th><input style = "width:100%;" type = "text" name = "id" value = "{{lesson.id}}" disabled></th>
+      </tr>
+      <tr>
+        <th>课程编号</th>
+        <th><input style = "width:100%;" type="text" name="lesson_id" value="{{lesson.lesson_id}}"></th>
+      </tr>
+      <tr>
+        <th>授课老师</th>
+        <th><input style = "width:100%;" type="text" name="teacher" value="{{lesson.teacher}}"></th>
+      </tr>
+      <tr>
+        <th>课程容量</th>
+        <th><input style = "width:100%;" type="text" name="capacity" value="{{lesson.capacity}}"></th>
+      </tr>
+      <tr>
+        <th>课程学分</th>
+        <th><input style = "width:100%;" type="text" name="score" value="{{lesson.score}}"></th>
+      </tr>
+      <tr>
+        <th>开课周数</th>
+        <th><input style = "width:100%;" type="text" name="weeks" value="{{lesson.weeks}}"></th>
+      </tr>
+      <tr>
+        <th>开课时间</th>
+        <th><input style = "width:100%;" type="text" name="time" value="{{lesson.time}}"></th>
+      </tr>
+      <tr>
+        <th>授课地点</th>
+        <th><input style = "width:100%;" type="text" name="classroom" value="{{lesson.classroom}}"></th>
+      </tr>
+      <tr>
+        <th>所属学院</th>
+        <th><input style = "width:100%;" type="text" name="collage" value="{{lesson.collage}}"></th>
+      </tr>
+      <tr>
+        <th>所属学校</th>
+        <th><input style = "width:100%;" type="text" name="school" value="{{lesson.school}}"></th>
+      </tr>
+      <tr>
+        <th>补充信息</th>
+        <th>
+          <input style = "width:100%;" type="text" name="supplement" value="{{lesson.supplement}}">
+        </th>
+      </tr>
+    </table>
+    <div style = "text-align:center">
+      <input type="submit" name="modify" value="修改">
+    </div>
+  </form>
 </ul>
-<div style = "text-align:right">
-<a href="/class_search/">返回到主页</a>
-</div>
 </html>

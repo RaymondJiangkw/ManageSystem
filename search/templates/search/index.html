@@ -16,7 +16,7 @@
       <input class = "text" type="submit" name="search" value="检索">
     </div>
     <p></p>
-    <form action="{% url 'search:modify'%}" method="post">
+    <form action="{% url 'search:delete'%}" method="post">
       {% csrf_token %}
     <div style="text-align:right">
       <a class = "text" href="{% url 'search:add'%}">添加</a>

@@ -1,1 +1,101 @@
-<p>Empty page.</p>
+<html>
+{% load static %}
+<link rel="stylesheet" type = "text/css" href="{% static 'search/detail_style.css' %}">
+<h1>添加新课程</h1>
+<ul>
+  <h2>基本信息</h2>
+  <div style = "text-align:right">
+  <a href="/class_search/">返回到主页</a>
+  </div>
+  <form action="{% url 'search:add_behavior' %}" method="post">
+    {% csrf_token %}
+    <table align = "center">
+      <tr>
+        <th>课程名称</th>
+        <th><input style = "width:100%;" type="text" name="name" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>课程编号</th>
+        <th><input style = "width:100%;" type="text" name="lesson_id" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>授课老师</th>
+        <th><input style = "width:100%;" type="text" name="teacher" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>课程容量</th>
+        <th><input style = "width:100%;" type="text" name="capacity" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>课程学分</th>
+        <th><input style = "width:100%;" type="text" name="score" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>开课周数</th>
+        <th>
+          {% if preserve == 1 %}
+          <input style = "width:100%;" type="text" name="weeks" placeholder="<NULL>">
+          {% else %}
+          <input style = "width:100%;" type="text" name="weeks" value = "{{p_weeks}}">
+          {% endif %}
+          </th>
+      </tr>
+      <tr>
+        <th>开课时间</th>
+        <th>
+            {% if preserve == 1%}
+            <input style = "width:100%;" type="text" name="time" placeholder="<NULL>">
+            {% else %}
+            <input style = "width:100%;" type="text" name="time" value = "{{p_time}}">
+            {% endif %}
+          </th>
+      </tr>
+      <tr>
+        <th>授课地点</th>
+        <th><input style = "width:100%;" type="text" name="classroom" placeholder="<NULL>"></th>
+      </tr>
+      <tr>
+        <th>所属学院</th>
+        <th>
+          {% if preserve == 1%}
+          <input style = "width:100%;" type="text" name="collage" placeholder="<NULL>">
+          {% else %}
+          <input style = "width:100%;" type="text" name="collage" value = "{{p_collage}}">
+          {% endif %}
+          </th>
+      </tr>
+      <tr>
+        <th>所属学校</th>
+        <th>
+          {% if preserve == 1%}
+          <input style = "width:100%;" type="text" name="school" placeholder="<NULL>">
+          {% else %}
+          <input style = "width:100%;" type="text" name="school" value = "{{p_school}}">
+          {% endif %}
+        </th>
+      </tr>
+      <tr>
+        <th>补充信息</th>
+        <th>
+          <input style = "width:100%;" type="text" name="supplement" placeholder="<NULL>">
+        </th>
+      </tr>
+      <!--
+      <tr>
+        <th><p style = "font-size:15px;">保留部分必要信息</p></th>
+        <th>
+            {% if preserve == 1%}
+              <input type="checkbox" name="preserve" value="1" checked>
+            {% else %}
+              <input type="checkbox" name="preserve" value="1">
+            {% endif %}
+        </th>
+      </tr>
+      -->
+    </table>
+    <div style = "text-align:center">
+      <input type="submit" name="add" value="添加">
+    </div>
+  </form>
+</ul>
+</html>

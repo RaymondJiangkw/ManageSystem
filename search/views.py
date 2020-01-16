@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404,render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+from django.urls import reverse
 from .models import Lesson
 # Create your views here.
 def min(a,b):
@@ -25,7 +26,7 @@ def index(request,number = 50,page = 1):
 def detail(request,lesson_id):
     lesson = get_object_or_404(Lesson,pk = lesson_id)
     return render(request,"search/detail.html",{"lesson":lesson})
-def modify(request):
+def delete(request):
     post_context = str(request.body)
     post_context = post_context.replace("'","")
     post_context = post_context.split("&")
@@ -38,5 +39,48 @@ def modify(request):
             del_list.append(post[1])
     message = "Have successfully delete " + ",".join(del_list)
     return HttpResponse(message)
-def add(request):
+def add_html(request):
     return render(request,"search/add.html")
+def add(request):
+    preserve = 0
+    try:
+        preserve = request.POST['preserve']
+    except:
+        pass
+    lesson = Lesson(
+        name = request.POST['name'],
+        teacher = request.POST['teacher'],
+        capacity = request.POST['capacity'],
+        classroom = request.POST['classroom'],
+        supplement = request.POST['supplement'],
+        collage = request.POST['collage'],
+        school = request.POST['school'],
+        lesson_id = request.POST['lesson_id'],
+        score = request.POST['score'],
+        time = request.POST['time'],
+        weeks = request.POST['weeks']
+    )
+    lesson.save()
+    #pass_values = {'preserve':preserve,
+    #    'p_collage':request.POST['collage'],
+    #    'p_school':request.POST['school'],
+    #    'p_time':request.POST['time'],
+    #    'p_weeks':request.POST['weeks']
+    #}
+    return HttpResponseRedirect(reverse("search:add"))
+
+def modify(request,lesson_id):
+    lesson = get_object_or_404(Lesson,pk = lesson_id)
+    lesson.name = request.POST['name']
+    lesson.teacher = request.POST['teacher']
+    lesson.capacity = request.POST['capacity']
+    lesson.classroom = request.POST['classroom']
+    lesson.supplement = request.POST['supplement']
+    lesson.collage = request.POST['collage']
+    lesson.school = request.POST['school']
+    lesson.lesson_id = request.POST['lesson_id']
+    lesson.score = request.POST['score']
+    lesson.time = request.POST['time']
+    lesson.weeks = request.POST['weeks']
+    lesson.save()
+    return HttpResponseRedirect(reverse("search:detail",args = (lesson_id,)))
