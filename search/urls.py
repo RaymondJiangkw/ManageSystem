@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete/',views.delete,name = "delete"),
     path('add/',views.add_html,name = "add"),
     path('add_behavior/',views.add,name = "add_behavior"),
+    path('filter/',views.filter,name = "filter"),
 ]
