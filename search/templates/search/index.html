@@ -1,99 +1,80 @@
 <html>
 <title>课程管理总页面</title>
+<head>
+  <meta charset = "UTF-8">
+</head>
 {% load static %}
 <link rel="stylesheet" type ="text/css" href = "{% static 'search/index_style.css' %}">
-<h1>课程管理总页面</h1>
-<h2>课程信息</h2>
+<body>
+<div class="topnav">
+  <p><b>Class Filtering System</b></p>
+</div>
+<br>
 <div style="overflow-x:auto;">
   {% if lessons %}
-    <div style="text-align:center">
-      <form action="{% url 'search:filter' %}" method="post">
-        {% csrf_token %}
-        <p class = 'text' style = 'display:inline;font-weight:bold;'>检索(';'分隔)：</p>
-        {% if filter == 0 %}
-          <input class = "text" type="text" name="keywords_name" placeholder = "<课程名称>">
-          <input class = "text" type="text" name="keywords_id" placeholder = "<课程编号>">
-          <input class = "text" type="text" name="keywords_week" placeholder="<开课周数>">
-          <input class = "text" type="text" name="keywords_time" placeholder="<开课时间>">
-          <input class = "text" type="text" name="keywords_collage" placeholder="<所属学院>">
-          <input class = "text" type="text" name="keywords_school" placeholder="<所属学校>">
-        {% else %}
-            {% if keywords_name == "" %}
-              <input class = "text" type="text" name="keywords_name" placeholder = "<课程名称>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_name" value = "{{keywords_name}}" placeholder = "<课程名称>">
-            {% endif %}
-
-            {% if keywords_id == "" %}
-              <input class = "text" type="text" name="keywords_id" placeholder = "<课程编号>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_id" value = "{{keywords_id}}" placeholder = "<课程编号>">
-            {% endif %}
-
-            {% if keywords_week == "" %}
-              <input class = "text" type="text" name="keywords_week" placeholder="<开课周数>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_week" value = "{{keywords_week}}" placeholder="<开课周数>">
-            {% endif %}
-
-            {% if keywords_time == "" %}
-              <input class = "text" type="text" name="keywords_time" placeholder="<开课时间>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_time" value = "{{keywords_time}}" placeholder="<开课时间>">
-            {% endif %}
-
-            {% if keywords_collage == "" %}
-              <input class = "text" type="text" name="keywords_collage" placeholder="<所属学院>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_collage" value = "{{keywords_collage}}" placeholder="<所属学院>">
-            {% endif %}
-
-            {% if keywords_school == "" %}
-              <input class = "text" type="text" name="keywords_school" placeholder="<所属学校>">
-            {% else %}
-              <input class = "text" type="text" name="keywords_school" value = "{{keywords_school}}" placeholder="<所属学校>">
-            {% endif %}
-
-        {% endif %}
-        <input class = "text" type="submit" name="search" value="检索">
-      </form>
-    </div>
-    <p></p>
     <form action="{% url 'search:delete'%}" method="post">
       {% csrf_token %}
-    <div style="text-align:right">
-      <a class = "text" href="{% url 'search:add'%}">添加</a>
-      <p class = "text" style = "display:inline;">||</p>
-      <input class = "text" type="submit" name="delete" value="删除">
+      <div class = 'left'>
+      <table class = "maintable">
+        <tr>
+          <th><p class = "left_title">选择</p></th>
+          <th><p class = "left_title">数据编号</p></th>
+          <th><p class = "left_title">课程名称</p></th>
+          <th><p class = "left_title">课程编号</p></th>
+          <th><p class = "left_title">课程教室</p></th>
+          <th><p class = "left_title">开课周数</p></th>
+          <th><p class = "left_title">开课时间</p></th>
+          <th><p class = "left_title">所属学院</p></th>
+          <th><p class = "left_title">所属学校</p></th>
+        </tr>
+        {% for lesson in lessons %}
+        <tr>
+          <th><input type="checkbox" name="choose" id = "choose{{lesson.id}}" value="{{lesson.id}}"></th>
+          <th>{{lesson.id}}</th>
+          <th><a href="{% url 'search:detail' lesson.id%}">{{lesson.name}}</a></th>
+          <th>{{lesson.lesson_id}}</th>
+          <th>{{lesson.classroom}}</th>
+          <th>{{lesson.weeks}}</th>
+          <th>{{lesson.time}}</th>
+          <th>{{lesson.collage}}</th>
+          <th>{{lesson.school}}</th>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
-    <table border = "1">
-      <tr>
-        <th>选择</th>
-        <th>数据编号</th>
-        <th>课程名称</th>
-        <th>课程编号</th>
-        <th>课程教室</th>
-        <th>开课周数</th>
-        <th>开课时间</th>
-        <th>所属学院</th>
-        <th>所属学校</th>
-      </tr>
-      {% for lesson in lessons %}
-      <tr>
-        <th><input type="checkbox" name="choose" id = "choose{{lesson.id}}" value="{{lesson.id}}"></th>
-        <th>{{lesson.id}}</th>
-        <th><a href="{% url 'search:detail' lesson.id%}">{{lesson.name}}</a></th>
-        <th>{{lesson.lesson_id}}</th>
-        <th>{{lesson.classroom}}</th>
-        <th>{{lesson.weeks}}</th>
-        <th>{{lesson.time}}</th>
-        <th>{{lesson.collage}}</th>
-        <th>{{lesson.school}}</th>
-      </tr>
-      {% endfor %}
-    </table>
-  </form>
+    <div class="right">
+      <ul>
+      <li style = "border-bottom: 1px solid #555;"><a href="{% url 'search:add'%}">添加</a></td></li>
+      <li style = "border-bottom: 1px solid #555;"><input class = "nav_button" type="submit" name="delete" value="删除"></li>
+      </form>
+      <li><p class = "right_p"><b>检索</b></p></li>
+        <form action="{% url 'search:filter' %}" method="post">
+          {% csrf_token %}
+            <li><input class = "nav_text" type="text" name="keywords_name" value = "{{keywords_name}}" placeholder = "<课程名称>"></li>
+            <li><br></li>
+            <li><input class = "nav_text" type="text" name="keywords_id" value = "{{keywords_id}}" placeholder = "<课程编号>"></li>
+            <li><br></li>
+            <li><input class = "nav_text" type="text" name="keywords_week" value = "{{keywords_week}}" placeholder="<开课周数>"></li>
+            <li><br></li>
+            <li><input class = "nav_text" type="text" name="keywords_time" value = "{{keywords_time}}" placeholder="<开课时间>"></li>
+            <li><br></li>
+            <li><input class = "nav_text" type="text" name="keywords_collage" value = "{{keywords_collage}}" placeholder="<所属学院>"></li>
+            <li><br></li>
+            <li><input class = "nav_text" type="text" name="keywords_school" value = "{{keywords_school}}" placeholder="<所属学校>"></li>
+            <li><br></li>
+            <li><input class = "nav_button_true" type="submit" name="search" value="检索"></li>
+        </form>
+        <li><p class = "mark">© ManageSystem 2019</p>
+        </li>
+        <li><p class = "mark">Powered by RaymondJiang</p>
+        </li>
+        <li><p class = "mark">All rights reserved.</p>
+        </li>
+      </ul>
+    </div>
 </div>
+
+
 {% if page_range == 1 %}
 <div style = "text-align:right">
   {% if page != 1 %}
@@ -109,10 +90,12 @@
   {% endif %}
   <p class = "text">跳转、调整每页显示数目，请在“地址栏”操作</p>
 </div>
+{% endif %}
+
 {% else %}
 {% if page_range == 1%}
   <p style = "text-align:center">没有可用的课程信息。</p>
 {% endif %}
 {% endif %}
-{% endif %}
+</body>
 </html>
